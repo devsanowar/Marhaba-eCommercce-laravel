@@ -59,7 +59,7 @@ class DistrictController extends Controller
         $district = District::find($request->id);
 
         if (!$district) {
-            return response()->json(['status' => false, 'message' => 'Upazila not found.']);
+            return response()->json(['status' => false, 'message' => 'District not found.']);
         }
 
         $district->is_active = !$district->is_active;

@@ -34,6 +34,20 @@
                         </div>
 
                         <div class="col-lg-12 col-md-12 col-sm-8 col-xs-7 mb-3">
+                            <label for="brand_id"><b>Category</b></label>
+                            <div class="form-group">
+                                <div class="" style="border: 1px solid #ccc">
+                                    <select name="category_id" class="form-control show-tick">
+                                        @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12 col-md-12 col-sm-8 col-xs-7 mb-3">
                             <label for="banner_description"><b>Post Description</b></label>
                             <div class="form-group">
                                 <div class="" style="border: 1px solid #ccc">

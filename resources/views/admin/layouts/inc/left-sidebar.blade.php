@@ -171,12 +171,17 @@
                     <span>Post</span>
                 </a>
                 <ul class="ml-menu">
+                    <li class="{{ request()->routeIs('post_category.index') ? 'active' : '' }}">
+                        <a href="{{ route('post_category.index') }}">Category</a>
+                    </li>
+
                     <li class="{{ request()->routeIs('post.create') ? 'active' : '' }}">
                         <a href="{{ route('post.create') }}">Add Post</a>
                     </li>
                     <li class="{{ request()->routeIs('post.index') ? 'active' : '' }}">
                         <a href="{{ route('post.index') }}">All Post</a>
                     </li>
+
                 </ul>
             </li>
 

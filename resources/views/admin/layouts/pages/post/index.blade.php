@@ -29,6 +29,7 @@
                                 <th>S/N</th>
                                 <th style="width: 40px">Image</th>
 								<th>Post Title</th>
+								<th>Category</th>
 								<th>Content</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -41,6 +42,7 @@
                                 <td>{{$key+1 }}</td>
                                 <td><img src="{{ asset($post->image) }}" alt="" width="30"></td>
 								<td>{{ Str::words($post->post_title, 6, '...') }}</td>
+								<td>{{ $post->category->category_name }}</td>
 								<td>{!! Str::words($post->post_content, 4, '...') !!}</td>
                                 <td>
                                     <button data-id="{{ $post->id }}" class="btn btn-sm status-toggle-btn {{ $post->is_active ? 'btn-success' : 'btn-danger' }}">

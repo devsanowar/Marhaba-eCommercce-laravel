@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\PromobannerController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\PaymentMethodController;
+use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\WebsiteSettingController;
 
 Route::prefix('admin')
@@ -142,7 +143,7 @@ Route::prefix('admin')
         Route::post('/district/store/', [DistrictController::class, 'store'])->name('district.store');
         Route::get('district/edit/{id}', [DistrictController::class, 'edit'])->name('district.edit');
         Route::post('district/update', [DistrictController::class, 'update'])->name('district.update');
-        Route::delete('district/destroy/{id}', [DistrictController::class, 'destroy'])->name('district.destroy');
+        Route::delete('post-category/destroy/{id}', [PostCategoryController::class, 'destroy'])->name('post_category.destroy');
         Route::post('/district/status-change', [DistrictController::class, 'districtChangeStatus'])->name('district.status');
 
         // Upazila Route Here
@@ -174,6 +175,16 @@ Route::prefix('admin')
         Route::get('payment-method/edit/{id}', [PaymentMethodController::class, 'edit'])->name('payment_method.edit');
         Route::put('payment-method/update/{id}', [PaymentMethodController::class, 'update'])->name('payment_method.update');
         Route::delete('payment-method/delete/{id}', [PaymentMethodController::class, 'destroy'])->name('payment_method.destroy');
+
+
+        // Post Category
+        Route::get('/post-category/', [PostCategoryController::class, 'index'])->name('post_category.index');
+        Route::post('/post-category/store', [PostCategoryController::class, 'store'])->name('post_category.store');
+        Route::post('/post-category/update', [PostCategoryController::class, 'update'])->name('post_category.update');
+        Route::delete('/post-category/delete/{id}', [PostCategoryController::class, 'destroy'])->name('post_category.destroy');
+        Route::post('/post-category/status-change/', [PostCategoryController::class, 'statusChange'])->name('post_category.status');
+        Route::post('/post-category/status-change', [PostCategoryController::class, 'changeStatus'])->name('post_category.status');
+
 
         // Posts
         Route::resource('post', PostController::class);

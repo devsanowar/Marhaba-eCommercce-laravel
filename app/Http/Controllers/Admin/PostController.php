@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Postcategory;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Laravel\Facades\Image;
 
@@ -19,7 +20,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->get(['id','post_title','post_content','image','is_active']);
+        $posts = Post::with('category')->latest()->get(['id','category_id','post_title','post_content','image','is_active']);
+
         return view('admin.layouts.pages.post.index', compact('posts'));
     }
 
@@ -28,7 +30,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.layouts.pages.post.create');
+        $categories = Postcategory::where('is_active', 1)->latest()->get();
+        return view('admin.layouts.pages.post.create', compact('categories'));
     }
 
     /**
@@ -39,6 +42,7 @@ class PostController extends Controller
         $newPostImage = $this->postImage($request);
         Post::create([
             'user_name' => Auth::user()->name,
+            'category_id' => $request->category_id,
             'post_title' => $request->post_title,
             'post_slug' => Str::slug($request->post_title),
             'post_content' => $request->post_content,
@@ -64,8 +68,9 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
+        $categories = Postcategory::where('is_active', 1)->latest()->get();
         $post = Post::find($id);
-        return view('admin.layouts.pages.post.edit', compact('post'));
+        return view('admin.layouts.pages.post.edit', compact('post', 'categories'));
     }
 
     /**
@@ -87,6 +92,7 @@ class PostController extends Controller
 
         $post->update([
             'user_name' => Auth::user()->name,
+            'category_id' => $request->category_id,
             'post_title' => $request->post_title,
             'post_slug' => Str::slug($request->post_title),
             'post_content' => $request->post_content,

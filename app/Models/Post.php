@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Postcategory;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
     protected $guarded = ['id'];
+
+    public function category(){
+        return $this->belongsTo(Postcategory::class);
+    }
 
     public function getReadingTimeAttribute()
     {

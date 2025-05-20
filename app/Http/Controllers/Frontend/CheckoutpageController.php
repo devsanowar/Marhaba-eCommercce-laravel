@@ -29,7 +29,7 @@ class CheckoutpageController extends Controller
         }
 
         $districts = District::with('upazilas')->get();
-        $shippings = Shipping::all();
+        $shippings = Shipping::where('is_active', 1)->get();
         $paymentMethods = Paymentmethod::all();
         return view('website.layouts.pages.checkout.checkout', compact(['cartContents', 'totalAmount', 'districts', 'shippings', 'paymentMethods']));
     }
