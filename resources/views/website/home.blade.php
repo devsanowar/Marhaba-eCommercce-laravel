@@ -13,8 +13,8 @@
       </a>
       <a href="https://m.me/yourusername" target="_blank" class="icon call2">
         <i class="fa-brands fa-facebook-messenger" style="font-size: 22px"></i>
-      </a>
-    </div>
+      </a>
+    </div>
 
 
 
@@ -45,17 +45,17 @@
             <div class="col-lg-9 col-md-12">
                 <div class="banner">
                     <div class="banner-content" data-aos="fade-up">
-                        <h4 class="banner-content__subtitle">Best Product</h4>
-                        <h2 class="banner-content__title">DOG FOOD</h2>
+                        <h4 class="banner-content__subtitle">{{ $banner->sub_title }}</h4>
+                        <h2 class="banner-content__title">{{ $banner->title }}</h2>
                         <p class="banner-content__desc">
-                            Wusmod tempor incididu nt ut labore et dolore magna aliqua.
+                            {!! $banner->description !!}
                         </p>
                         <div class="banner-content__buttons">
-                            <a href="/shop.html" class="btn btn--base pill">SHOP NOW</a>
+                            <a href="{{ $banner->button_url }}" class="btn btn--base pill">{{ $banner->button_name }}</a>
                         </div>
                     </div>
                     <div class="banner-thumb">
-                        <img src="{{ asset('frontend') }}/assets/images/thumbs/marhaba-banner-image.png" alt="" />
+                        <img src="{{ asset( $banner->image ) }}" alt="" />
                         {{-- <div class="banner-thumb__shape">
                             <img src="{{ asset('frontend') }}/assets/images/shapes/banner-shape.png" alt="" />
                         </div> --}}
@@ -71,16 +71,16 @@
 <div class="offer-section pt-60 pb-60" style="overflow:hidden">
     <div class="container">
         <div class="row gy-4">
+            @forelse ($promobanners as $promobanner)
             <div class="col-lg-6" data-aos="fade-right">
                 <a href="/shop.html" class="offer">
-                    <img src="{{ asset('frontend') }}/assets/images/home/Mp banner design6.jpg" alt="" />
+                    <img src="{{ asset($promobanner->image) }}" alt="" />
                 </a>
             </div>
-            <div class="col-lg-6" data-aos="fade-left">
-                <a href="/shop.html" class="offer">
-                    <img src="{{ asset('frontend') }}/assets/images/home/hero-banner3.jpg" alt="" />
-                </a>
-            </div>
+            @empty
+
+            @endforelse
+
         </div>
     </div>
 </div>
@@ -459,6 +459,20 @@
 <!-- ==========================feature setion end here ============================-->
 
 @push('scripts')
+
+<script>
+      const icons = document.querySelector(".floating-icons");
+
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 140) {
+          icons.classList.add("visible");
+        } else {
+          icons.classList.remove("visible");
+        }
+});
+</script>
+
+
     <script>
         $(document).ready(function() {
             $(document).on('submit', '.add-to-cart-form', function(e) {
@@ -503,15 +517,7 @@
         });
     </script>
 
-    <script>
-        window.addEventListener("scroll", () => {
-        if (window.scrollY > 140) {
-          icons.classList.add("visible");
-        } else {
-          icons.classList.remove("visible");
-        }
-      });
-    </script>
+
 
 @endpush
 

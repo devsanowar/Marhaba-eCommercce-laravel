@@ -10,11 +10,12 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $blogs = Post::latest()->paginate(10);
+        $pageTitle = 'Blog';
+        $blogs = Post::latest()->paginate(5);
         $recentBlogs = Post::latest()
             ->limit(5)
             ->get(['id', 'post_title', 'post_slug', 'post_content', 'image']);
-        return view('frontend.blog', compact('blogs', 'recentBlogs'));
+        return view('website.layouts.blog', compact('blogs', 'recentBlogs', 'pageTitle'));
     }
 
     public function blogSinglePage($post_slug)
@@ -23,6 +24,6 @@ class BlogController extends Controller
             ->limit(5)
             ->get(['id', 'post_title', 'post_slug', 'post_content', 'image']);
         $blog = Post::where('post_slug', $post_slug)->firstOrFail();
-        return view('frontend.layouts.pages.blog.blog-single-page', compact('blog', 'recentBlogs'));
+        return view('website.layouts.pages.blog.blog-single-page', compact('blog', 'recentBlogs'));
     }
 }

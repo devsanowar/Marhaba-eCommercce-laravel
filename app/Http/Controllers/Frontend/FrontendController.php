@@ -17,13 +17,17 @@ use App\Models\Achievement;
 use App\Models\ProjectVideo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
+use App\Models\Promobanner;
 
 class FrontendController extends Controller
 {
     public function index()
     {
-        $sliders = Slider::where('is_active', 1)->get(['id', 'slider_title', 'slider_content', 'button_url', 'image']);
+        $banner = Banner::select(['id', 'title', 'sub_title', 'description', 'button_name', 'button_url', 'image'])->first();
         $categories = Category::with('products')->where('category_slug', '!=', 'default')->select('id', 'category_name', 'image', 'category_slug')->get();
+
+        $promobanners = Promobanner::where('is_active', 1)->latest()->get(['id','image']);
 
         $about = About::first();
 
@@ -50,7 +54,7 @@ class FrontendController extends Controller
 
         $blogs = Post::latest()->take(3)->get();
 
-        return view('website.home', compact(['sliders', 'categories', 'achievements', 'reviews', 'about', 'featured_products', 'blogs']));
+        return view('website.home', compact(['banner', 'categories', 'achievements', 'reviews', 'about', 'featured_products', 'blogs', 'promobanners']));
     }
 
     public function shopPage()

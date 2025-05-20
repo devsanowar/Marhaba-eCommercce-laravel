@@ -16,7 +16,8 @@
 
 <header class="top-header">
     <div class="container">
-        <div class="row align-items-center">
+        <div class="row align-items-center d-flex justify-content-between">
+
             <!-- Logo -->
             <div class="col-md-2 col-6">
                 <a href="{{ route('home') }}">
@@ -27,28 +28,31 @@
             </div>
 
             <!-- Search bar -->
-            <div class="col-md-6 d-none d-md-block search-container">
-                <input type="text" class="form-control search-input" id="searchInput" placeholder="" />
-                <div class="search-box-result">
-                    <ul>
-                        <li class="search-box-list">
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <!-- Search bar -->
+<div class="col-md-6 d-none d-md-block">
+    <div class="search-container d-flex justify-content-end">
+        <input type="text" class="form-control search-input" id="searchInput" placeholder="" style="max-width: 450px;" />
+        <div class="search-box-result">
+            <ul>
+                <li class="search-box-list"></li>
+            </ul>
+        </div>
+    </div>
+</div>
 
 
             <!-- Location and Button -->
             <div class="col-md-4 col-6 text-end">
-                <div class="d-flex g-2" style="flex-wrap: wrap">
-                    <span class="me-3"><i class="fas fa-map-marker-alt"></i> {{ $website_setting->address }}</span><span class="me-3"><i class="fa-solid fa-phone"></i>
-                        {{ $website_setting->phone }}
-                    </span>
+                <div class="d-flex g-2" style="flex-wrap: wrap; float: right;">
+                    <span class="me-3"><i class="fas fa-map-marker-alt"></i> {{ $website_setting->address }}</span>
+                    <span class="me-3"><i class="fa-solid fa-phone"></i> {{ $website_setting->phone }}</span>
                 </div>
             </div>
+
         </div>
     </div>
 </header>
+
 <!-- ==================== Header Top End Here ==================== -->
 
 <!-- ==================== Bottom Header End Here ==================== -->
@@ -110,7 +114,7 @@
                         <a class="nav-link" href="{{ route('shop_page') }}"> Shop </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link" href="/blog.html"> Blog </a>
+                        <a class="nav-link" href="{{ route('blog.page') }}"> Blog </a>
                     </li>
 
                     <li class="nav-item">

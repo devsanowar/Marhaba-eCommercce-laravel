@@ -79,7 +79,7 @@
                 </a>
                 <ul class="ml-menu">
                     <li class="{{ request()->routeIs('slider.*') ? 'active' : '' }}">
-                        <a href="{{ route('slider.index') }}"><span>Slider</span></a>
+                        <a href="{{ route('banner.index') }}"><span>Banner</span></a>
                     </li>
 
                     <li class="{{ request()->routeIs('about.*') ? 'active' : '' }}">
@@ -88,6 +88,10 @@
 
                     <li class="{{ request()->routeIs('about.*') ? 'active' : '' }}">
                         <a href="{{ route('about.index') }}"><span>About</span></a>
+                    </li>
+
+                    <li class="{{ request()->routeIs('why-choose-us.*') ? 'active' : '' }}">
+                        <a href="{{ route('why-choose-us.index') }}"><span>Why choose us</span></a>
                     </li>
 
                     <li class="{{ request()->routeIs('achievement.*') ? 'active' : '' }}">
@@ -103,11 +107,11 @@
                 </ul>
             </li>
 
-            {{-- <li class="{{ $isAboutPageActive ? 'active' : '' }}">
+            <li class="{{ $isAboutPageActive ? 'active' : '' }}">
                 <a href="{{ route('about_page.page') }}">
                     <i class="zmdi zmdi-assignment"></i><span>About Page</span>
                 </a>
-            </li> --}}
+            </li>
 
             <li class="{{ $isProductActive ? 'active open' : '' }}">
                 <a href="javascript:void(0);" class="menu-toggle"> <i class="zmdi zmdi-shopping-cart"></i>

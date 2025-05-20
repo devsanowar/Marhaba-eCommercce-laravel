@@ -17,7 +17,7 @@
                             </li>
                             <li class="breadcumb__item">/</li>
                             <li class="breadcumb__item">
-                                <span class="breadcumb__item-text"> About Us </span>
+                                <span class="breadcumb__item-text"> {{ $pageTitle }} </span>
                             </li>
                         </ul>
                     </div>

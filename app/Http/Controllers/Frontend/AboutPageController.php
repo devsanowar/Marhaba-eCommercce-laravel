@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\About;
 use App\Models\Chairman;
 use App\Models\MissionAndVission;
+use App\Models\Review;
+use App\Models\WhyChoseUs;
 use Illuminate\Http\Request;
 
 class AboutPageController extends Controller
@@ -15,11 +17,15 @@ class AboutPageController extends Controller
         $chairman = Chairman::first();
         $about = About::first();
         $missionVission = MissionAndVission::first();
+        $whychoseuses = WhyChoseUs::Where('is_active', 1)->latest()->get();
+        $reviews = Review::latest()->get();
         return view('website.layouts.about', compact([
             'pageTitle',
             'chairman',
             'about',
-             'missionVission'
+             'missionVission',
+             'reviews',
+             'whychoseuses'
         ]));
     }
 }

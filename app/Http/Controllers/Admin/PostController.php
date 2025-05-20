@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Laravel\Facades\Image;
 
 class PostController extends Controller
@@ -37,6 +38,7 @@ class PostController extends Controller
     {
         $newPostImage = $this->postImage($request);
         Post::create([
+            'user_name' => Auth::user()->name,
             'post_title' => $request->post_title,
             'post_slug' => Str::slug($request->post_title),
             'post_content' => $request->post_content,
@@ -84,6 +86,7 @@ class PostController extends Controller
         }
 
         $post->update([
+            'user_name' => Auth::user()->name,
             'post_title' => $request->post_title,
             'post_slug' => Str::slug($request->post_title),
             'post_content' => $request->post_content,

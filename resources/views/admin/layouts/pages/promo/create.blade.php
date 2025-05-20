@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add District</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add Promo Banner</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -12,7 +12,7 @@
                     @csrf
 
                     <div class="form-group mb-4">
-                        <label><b>District</b></label>
+                        <label><b>Imagek</b></label>
                         <div class="input-group">
                             <div class="form-line case-input">
                                 <input type="file" class="form-control" name="image">
@@ -24,7 +24,6 @@
                     <div class="form-group">
                         <label><b>Status</b></label>
                         <select class="form-control show-tick" name="is_active">
-                            <option value="">Select Status</option>
                             <option value="1">Active</option>
                             <option value="0">Deactive</option>
                         </select>

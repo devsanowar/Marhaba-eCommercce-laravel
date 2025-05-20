@@ -24,7 +24,7 @@ class StoreWhyChooseUsRequest extends FormRequest
         return [
             'title' => 'bail|required|string|max:255|unique:why_chose_us,title',
             'description'   => 'required',
-            'image'         => 'required|image|mimes:jpeg,png,jpg,webp|max:20',
+            'image'         => 'required|image|mimes:jpeg,png,jpg,webp|max:50',
             'is_active'     => 'required|in:0,1',
         ];
     }

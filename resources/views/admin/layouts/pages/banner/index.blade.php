@@ -50,7 +50,7 @@
                             <label for="banner_subtitle"><b>Sub Title</b></label>
                             <div class="form-group">
                                 <div class="mb-2" style="border: 1px solid #ccc">
-                                    <input type="text" class="form-control" name="sub_title" id="banner_subtitle" value="{{ $banner->sub_title }}" />
+                                    <input type="text" class="form-control" name="sub_title" id="banner_subtitle" value="{{ $banner->sub_title }}" placeholder="Enter sub title" />
                                 </div>
                             </div>
                         </div>
@@ -67,28 +67,28 @@
                         </div>
 
                         <div class="col-lg-12 col-md-12 col-sm-8 col-xs-7 mb-3">
-                            <label for="banner_whatsapp"><b>WhatsApp Number</b></label>
+                            <label for="button_name"><b>Button Name</b></label>
                             <div class="form-group">
                                 <div class="" style="border: 1px solid #ccc">
-                                    <input type="text" name="whatsapp" id="banner_whatsapp" class="form-control"
-                                        placeholder="Enter WhatsApp number Or Weblink" value="{{ $banner->whatsapp }}">
+                                    <input type="text" name="button_name" id="button_name" class="form-control"
+                                        placeholder="Enter button name" value="{{ $banner->button_name }}">
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-lg-12 col-md-12 col-sm-8 col-xs-7 mb-3">
-                            <label for="get_free_assesment"><b>Assesment</b></label>
+                            <label for="button_url"><b>Button URL</b></label>
                             <div class="form-group">
                                 <div class="" style="border: 1px solid #ccc">
-                                    <input type="text" name="assesment" id="get_free_assesment" class="form-control"
-                                        placeholder="Enter Assesment link" value="{{ $banner->assesment }}">
+                                    <input type="text" name="button_url" id="button_url" class="form-control"
+                                        placeholder="Enter button url" value="{{ $banner->button_url }}">
                                 </div>
                             </div>
                         </div>
 
 
                         <div class="col-lg-12 col-md-12 col-sm-8 col-xs-7 mb-3">
-                            <label for="customFile"><b>Banner Image</b></label>
+                            <label for="customFile"><b> Image</b></label>
                             <div class="form-group">
                                 <div class="mb-2" style="border: 1px solid #ccc">
                                     <input type="file" class="form-control" id="customFile" / name="image">

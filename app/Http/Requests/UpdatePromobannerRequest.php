@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateWhyChooseUsRequest extends FormRequest
+class UpdatePromobannerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,9 @@ class UpdateWhyChooseUsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'bail|required|string|max:255',
-            'description'   => 'required',
-            'image'         => 'nullable|image|mimes:jpeg,png,jpg,webp|max:50',
-            'is_active'     => 'required|in:0,1',
+            'id' => 'required|exists:promobanners,id',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'is_active' => 'required|boolean',
         ];
     }
 }

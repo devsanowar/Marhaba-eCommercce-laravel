@@ -15,7 +15,7 @@
     <!-- Title -->
 <title>{{ $website_setting->website_title }} | Contact Page</title>
     <!-- Favicon -->
-    <link rel="shortcut icon" href="assets/images/logo/favicon.png" />
+    <link rel="shortcut icon" href="{{ asset($website_setting->website_favicon)}}" />
     @include('website.layouts.inc.style')
         <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />

@@ -45,7 +45,7 @@
    @include('website.layouts.inc.search-modal')
     <!--========================== Search Modal End ==========================-->
 
-@include('website.layouts.pages.about.about')
+@include('website.layouts.pages.blog.blog')
 
     <!-- ==========================feature setion end here ============================-->
 
