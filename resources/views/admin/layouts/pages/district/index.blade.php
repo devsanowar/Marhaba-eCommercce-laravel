@@ -73,10 +73,6 @@
 @section('admin_content')
 
 
-@php
-    $countDeletedData = App\Models\Product::onlyTrashed()->get();
-@endphp
-
 <div class="container-fluid">
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
@@ -93,7 +89,7 @@
                     </h4>
                 </div>
                 <div class="body">
-                    <table id="upazilaDataTable" class="table table-bordered table-striped table-hover dataTable js-exportable" >
+                    <table id="districtDataTable" class="table table-bordered table-striped table-hover dataTable js-exportable" >
                         <thead>
                             <tr>
                                 <th style="width: 60px">S/N</th>
@@ -105,9 +101,8 @@
 
                         <tbody>
                             @foreach ($districts as $key=>$district)
-
                             <tr id="districtRow-{{ $district->id }}">
-                                <td>{{ $district->id }}</td>
+                                <td>{{ $key+1 }}</td>
                                 <td class="district-name">{{ $district->district_name }}</td>
 
                                 <td>

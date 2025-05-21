@@ -18,7 +18,7 @@ class SocialIconController extends Controller
 
     public function socialIconUpdate(UpdateSocialIconRequest $request)
     {
-        $data = $request->only(['facebook_url', 'linkedin_url', 'instagram_url', 'twitter_url', 'youtube_url', 'pinterest_url', 'googleplus_url', 'tiktok_url']);
+        $data = $request->only(['facebook_url', 'messanger_url', 'linkedin_url', 'instagram_url', 'twitter_url', 'youtube_url', 'pinterest_url', 'googleplus_url', 'tiktok_url']);
 
         $socialIcon = WebsiteSocialIcon::first();
 

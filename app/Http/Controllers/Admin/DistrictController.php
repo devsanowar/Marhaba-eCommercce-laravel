@@ -5,19 +5,20 @@ namespace App\Http\Controllers\Admin;
 use App\Models\District;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 use App\Http\Requests\DistrictStoreRequest;
 
 class DistrictController extends Controller
 {
     public function index()
     {
-        $districts = District::latest()->get();
+        $districts = District::orderByDesc('id')->get();
         return view('admin.layouts.pages.district.index', compact('districts'));
     }
 
     public function store(DistrictStoreRequest $request)
     {
-        $district = District::create([
+        District::create([
             'district_name' => $request->district_name,
             'is_active' => filled($request->is_active),
         ]);
@@ -46,6 +47,21 @@ class DistrictController extends Controller
     public function destroy($id)
     {
         $district = District::find($id);
+
+        if ($district->district_name == 'Default') {
+            Toastr::error('Default District cannot be deleted.');
+            return back();
+        }
+
+        $defaultDistrict = District::where('district_name', 'Default')->first();
+        if (!$defaultDistrict) {
+            Toastr::error('District deleted successfully.');
+            return back();
+        }
+
+        $district->upazilas()->update([
+            'district_id' => $defaultDistrict->id
+        ]);
 
         $district->delete();
 

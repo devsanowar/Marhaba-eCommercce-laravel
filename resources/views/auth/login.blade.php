@@ -1,3 +1,9 @@
+
+@php
+    use App\Models\WebsiteSetting;
+    $website_setting = WebsiteSetting::first();
+@endphp
+
 <!doctype html>
 <html class="no-js " lang="en">
 
@@ -7,7 +13,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
 
-    <title>:: Nexa :: Sign In</title>
+    <title>:: {{ $website_setting->website_title }} :: Sign In</title>
     <!-- Favicon-->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <!-- Custom Css -->
@@ -22,10 +28,7 @@
     </style>
 </head>
 
-@php
-    use App\Models\WebsiteSetting;
-    $website_setting = WebsiteSetting::first();
-@endphp
+
 
 <body class="theme-orange">
     <div class="authentication" style="background-image: url('{{ asset($website_setting->login_page_bg) }}');">

@@ -19,6 +19,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Promobanner;
+use App\Models\WebsiteSetting;
+use App\Models\WebsiteSocialIcon;
 
 class FrontendController extends Controller
 {
@@ -30,6 +32,8 @@ class FrontendController extends Controller
         $promobanners = Promobanner::where('is_active', 1)->latest()->get(['id','image']);
 
         $about = About::first();
+        $social_icon = WebsiteSocialIcon::select(['id', 'messanger_url'])->first();
+        $website_setting = WebsiteSetting::select(['id', 'phone'])->first();
 
         $featured_products = Product::with(['category:id,category_name'])
             ->where('is_active', 1)
@@ -54,7 +58,7 @@ class FrontendController extends Controller
 
         $blogs = Post::latest()->take(3)->get();
 
-        return view('website.home', compact(['banner', 'categories', 'achievements', 'reviews', 'about', 'featured_products', 'blogs', 'promobanners']));
+        return view('website.home', compact(['banner', 'categories', 'achievements', 'reviews', 'about', 'featured_products', 'blogs', 'promobanners', 'social_icon', 'website_setting']));
     }
 
     public function shopPage()

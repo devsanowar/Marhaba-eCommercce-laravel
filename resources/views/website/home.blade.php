@@ -5,13 +5,13 @@
 </div>
 
 <div class="floating-icons">
-      <a href="https://wa.me/1234567890" target="_blank" class="icon whatsapp">
+      <a href="https://wa.me/{{ $website_setting->phone }}" target="_blank" class="icon whatsapp">
         <i class="fab fa-whatsapp" style="font-size: 25px"></i>
       </a>
-      <a href="tel:+1234567890" class="icon call">
+      <a href="tel:{{ $website_setting->phone }}" class="icon call">
         <i class="fas fa-phone-alt" style="font-size: 15px"></i>
       </a>
-      <a href="https://m.me/yourusername" target="_blank" class="icon call2">
+      <a href="{{ $social_icon->messanger_url }}" target="_blank" class="icon call2">
         <i class="fa-brands fa-facebook-messenger" style="font-size: 22px"></i>
       </a>
     </div>

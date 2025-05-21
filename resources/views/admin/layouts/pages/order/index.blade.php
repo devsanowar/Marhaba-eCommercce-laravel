@@ -168,7 +168,7 @@
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $item->created_at->format('d/m/Y') }}</td>
                                         <td>#{{ $item->order_id }}</td>
-                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->first_name . ' ' . $item->last_name }}</td>
                                         <td>{{ $item->phone }}</td>
                                         <td>{{ $item->total_price }}</td>
 

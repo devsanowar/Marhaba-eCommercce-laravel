@@ -49,7 +49,7 @@
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                 <a href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
-                                <div class="icon-circle g-bg-cyan"> <i class="material-icons">logout</i> </div>
+                                <div class="icon-circle g-bg-cyan"> <i class="material-icons">exit_to_app</i> </div>
                                 <div class="menu-info">
                                     <h4><b>Sign Out</b> </h4>
                                 </div>

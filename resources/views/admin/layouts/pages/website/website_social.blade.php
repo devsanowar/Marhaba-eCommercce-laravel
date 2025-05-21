@@ -52,6 +52,18 @@ Website Social Icon
                         </div>
 
                         <div class="col-lg-12 col-md-12 col-sm-8 col-xs-7 mb-3">
+                            <label for="messanger_url"><b>Messanger</b></label>
+                            <div class="form-group">
+                                <div class="" style="border: 1px solid #ccc">
+                                    <input type="text" id="messanger_url" class="form-control"
+                                        placeholder="Enter messanger url " name="messanger_url" value="{{ $social_icon_setting ? $social_icon_setting->messanger_url : '' }}">
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-lg-12 col-md-12 col-sm-8 col-xs-7 mb-3">
                             <label for="linkedin_url"><b>Linkedin</b></label>
                             <div class="form-group">
                                 <div class="" style="border: 1px solid #ccc">

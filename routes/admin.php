@@ -143,7 +143,7 @@ Route::prefix('admin')
         Route::post('/district/store/', [DistrictController::class, 'store'])->name('district.store');
         Route::get('district/edit/{id}', [DistrictController::class, 'edit'])->name('district.edit');
         Route::post('district/update', [DistrictController::class, 'update'])->name('district.update');
-        Route::delete('post-category/destroy/{id}', [PostCategoryController::class, 'destroy'])->name('post_category.destroy');
+        Route::delete('district/destroy/{id}', [DistrictController::class, 'destroy'])->name('district.destroy');
         Route::post('/district/status-change', [DistrictController::class, 'districtChangeStatus'])->name('district.status');
 
         // Upazila Route Here
@@ -198,7 +198,6 @@ Route::prefix('admin')
             Route::get('/mission/vision', [AboutPageController::class, 'missionVision'])->name('mission_vision.page');
 
             Route::post('/chairman/mission/update', [AboutPageController::class, 'missionUpdate'])->name('mission.update');
-
             Route::post('/chairman/vision/update', [AboutPageController::class, 'visionUpdate'])->name('vision.update');
         });
 

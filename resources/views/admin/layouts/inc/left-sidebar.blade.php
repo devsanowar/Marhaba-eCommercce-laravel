@@ -51,16 +51,8 @@
             <img src="{{ asset(Auth::user()->image) }}" width="48" height="48" alt="User" />
         </div>
         <div class="info-container">
-            <div class="name" data-toggle="dropdown">John Doe</div>
-            <div class="btn-group user-helper-dropdown">
-                <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-                    role="button"> keyboard_arrow_down </i>
-                <ul class="dropdown-menu slideUp">
-                    <li><a href="profile.html"><i class="material-icons">person</i>Profile</a></li>
-                    <li class="divider"></li>
-                </ul>
-            </div>
-            <div class="email">john.doe@example.com</div>
+            <div class="name" data-toggle="dropdown">{{ Auth::user()->name }}</div>
+            <div class="email">{{ Auth::user()->email }}</div>
         </div>
     </div>
     <!-- #User Info -->
