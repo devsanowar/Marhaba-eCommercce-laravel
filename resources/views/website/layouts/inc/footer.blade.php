@@ -70,22 +70,26 @@
                             <h5 class="footer-item__title">Pages</h5>
                             <ul class="footer-menu">
                                 <li class="footer-menu__item">
-                                    <a href="about.html" class="footer-menu__link"> About Us</a>
+                                    <a href="{{ route('about.page') }}" class="footer-menu__link"> About Us</a>
                                 </li>
                                 <li class="footer-menu__item">
-                                    <a href="faq.html" class="footer-menu__link"> Faq</a>
+                                    <a href="{{ route('shop_page') }}" class="footer-menu__link"> Shop</a>
                                 </li>
                                 <li class="footer-menu__item">
-                                    <a href="cart.html" class="footer-menu__link">Shopping Cart
+                                    <a href="{{ route('faq.page') }}" class="footer-menu__link"> Faq</a>
+                                </li>
+                                <li class="footer-menu__item">
+                                    <a href="{{ route('cart.page') }}" class="footer-menu__link">Shopping Cart
                                     </a>
                                 </li>
                                 <li class="footer-menu__item">
-                                    <a href="blog.html" class="footer-menu__link"> Blog</a>
+                                    <a href="{{ route('blog.page') }}" class="footer-menu__link"> Blog</a>
                                 </li>
+
                                 <li class="footer-menu__item">
-                                    <a href="/product-details.html" class="footer-menu__link">
-                                        Product Details</a>
+                                    <a href="{{ route('contact.page') }}" class="footer-menu__link"> Contact</a>
                                 </li>
+
                             </ul>
                         </div>
                     </div>
@@ -123,11 +127,14 @@
                         <div class="footer-item">
                             <h5 class="footer-item__title">Subscribe now</h5>
                             <div class="subscriber-form mb-3">
-                                <input type="text" class="form--control style-two" placeholder="Email Address"
+                                <form id="newsletterForm">
+                                    @csrf
+                                    <input type="text" name="phone" class="form--control style-two" placeholder="Phone Number"
                                     aria-label="Recipient's username" />
-                                <button class="btn btn--base subscribe-button">
+                                    <button class="btn btn--base subscribe-button" type="submit">
                                     <i class="fas fa-paper-plane"></i>
-                                </button>
+                                    </button>
+                                </form>
                             </div>
                             <p>
                                 Subscribe to our newsletter and get 10% off your first
@@ -144,9 +151,14 @@
         <div class="bottom-footer section-bg py-3">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <div class="bottom-footer__text">
                             {{ $website_setting->copyright_text }}.
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="bottom-footer__text_dev">
+                            <span>Devbeloped by <a href="https://www.freelanceit.com.bd/" target="_blank" rel="noopener noreferrer">Freelance It</a></span>
                         </div>
                     </div>
                 </div>
@@ -156,6 +168,39 @@
     <!-- ==================== Footer End Here ==================== -->
 
     @include('website.layouts.inc.script')
+
+<script>
+    $(document).ready(function() {
+        $(document).on('click', '.subscribe-button', function(e) {
+            e.preventDefault();
+
+            var formData = $('#newsletterForm').serialize(); // ✅ ফর্মের ডাটা সংগ্রহ করো
+
+            $.ajax({
+                url: '/subscribe-newsletter',
+                method: 'POST',
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    toastr.success('বার্তাটি সফলভাবে পাঠানো হয়েছে');
+                    $('#newsletterForm')[0].reset();
+                },
+                error: function(xhr) {
+                    if (xhr.status === 422) {
+                        $.each(xhr.responseJSON.errors, function(key, value) {
+                            toastr.error(value[0]);
+                        });
+                    } else {
+                        toastr.error('ত্রুটি হয়েছে, আবার চেষ্টা করুন');
+                    }
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 
 </html>

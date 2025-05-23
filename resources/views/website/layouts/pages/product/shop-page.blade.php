@@ -3,28 +3,7 @@
 
 
 <!-- ==================== Breadcumb Start Here ==================== -->
-<section class="breadcumb py-120 bg-img"
-    style="background-image: url({{ asset('frontend') }}/assets/images/thumbs/breadcumb-img.png)">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="breadcumb__wrapper">
-                    <h1 class="breadcumb__title">Shop</h1>
-                    <ul class="breadcumb__list">
-                        <li class="breadcumb__item">
-                            <a href="index.html" class="breadcumb__link">
-                                <i class="las la-home"></i> Home</a>
-                        </li>
-                        <li class="breadcumb__item">/</li>
-                        <li class="breadcumb__item">
-                            <span class="breadcumb__item-text">Shop </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+@include('website.layouts.inc.bradecramp')
 
 <!-- ==================product category two section start here ==============================-->
 <div class="product-category-two" style="background-color: #f8f9fa">
@@ -40,12 +19,8 @@
                         <div class="sidebar-item">
                             @forelse ($categories as $category)
                                 <div class="form-check form--check mb-4">
-                                    <input
-                                        class="form-check-input category-checkbox"
-                                        type="checkbox"
-                                        value="{{ $category->id }}"
-                                        id="category-{{ $category->id }}"
-                                    />
+                                    <input class="form-check-input category-checkbox" type="checkbox"
+                                        value="{{ $category->id }}" id="category-{{ $category->id }}" />
                                     <label class="form-check-label" for="category-{{ $category->id }}">
                                         {{ $category->category_name }}
                                     </label>
@@ -125,15 +100,16 @@
                     <div class="sidebar-item">
                         <h6 class="sidebar-item__title">Brand</h6>
                         @forelse ($brands as $brand)
-                        <div class="form-check form--check">
-                            <input class="form-check-input brand-checkbox" type="checkbox" value="{{ $brand->id }}" id="brand-{{ $brand->id }}" />
-                            <label class="form-check-label" for="brand-{{ $category->id }}">
-                                {{ $brand->brand_name }} ({{ $brand->products->count() }})
-                            </label>
-                        </div>
+                            <div class="form-check form--check">
+                                <input class="form-check-input brand-checkbox" type="checkbox"
+                                    value="{{ $brand->id }}" id="brand-{{ $brand->id }}" />
+                                <label class="form-check-label" for="brand-{{ $category->id }}">
+                                    {{ $brand->brand_name }} ({{ $brand->products->count() }})
+                                </label>
+                            </div>
                         @empty
-                        <div class="form-check form--check">
-                            <h4>Brand not found!!</h4>
+                            <div class="form-check form--check">
+                                <h4>Brand not found!!</h4>
                         @endforelse
 
                     </div>
@@ -147,93 +123,9 @@
                         <span class="text"> Filter </span>
                     </button>
                 </div>
-                <div id="product-list" class="row justify-content-center shop_wrapper product-list gy-4">
-
-                    @forelse ($products as $product)
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-xsm-6 mob-version-product">
-                            <div class="product-item">
-                                <div class="product-item__thumb">
-                                    <a href="{{ route('product_single.page', $product->id) }}"
-                                        class="product-item__thumb-link">
-                                        <img src="{{ asset($product->thumbnail) }}" alt="" />
-                                    </a>
-                                    <button class="product-item__icon">
-                                        <span class="product-item__icon-style">
-                                            <i class="las la-heart"></i>
-                                        </span>
-                                    </button>
-                                    <div class="product-item__badge">
-                                        <span class="badge badge--base">Sale</span>
-                                    </div>
-                                </div>
-                                <div class="product-item__content">
-                                    <h5 class="product-item__title">
-                                        <a href="{{ route('product_single.page', $product->id) }}"
-                                            class="product-item__title-link">
-                                            {{ $product->product_name }}
-                                        </a>
-                                    </h5>
-
-                                    <h6 class="product-item__price">
-                                        @if ($product->discount_price && $product->discount_type === 'flat')
-                                            @php
-                                                $product_discount_price =
-                                                    $product->regular_price - $product->discount_price;
-                                            @endphp
-                                            <span
-                                                class="product-item__price-new">৳{{ number_format($product_discount_price, 2) }}</span>
-                                            <span
-                                                class="text-decoration-line-through">৳{{ number_format($product->regular_price, 2) }}</span>
-                                        @elseif ($product->discount_price && $product->discount_type === 'percent')
-                                            @php
-                                                $discount_amount =
-                                                    ($product->regular_price * $product->discount_price) / 100;
-                                                $product_discount_price = $product->regular_price - $discount_amount;
-                                            @endphp
-                                            <span
-                                                class="product-item__price-new">৳{{ number_format($product_discount_price, 2) }}</span>
-                                            <span
-                                                class="text-decoration-line-through">৳{{ number_format($product->regular_price, 2) }}</span>
-                                        @else
-                                            <span
-                                                class="">৳{{ number_format($product->regular_price, 2) }}</span>
-                                        @endif
-                                    </h6>
-                                    <form class="add-to-cart-form">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <input type="hidden" name="order_qty" value="1">
-                                        <button type="submit" class="btn btn--base pill btn--sm btn-buy">
-                                            Add to Cart
-                                            <span class="spinner-border spinner-border-sm d-none"></span>
-                                        </button>
-
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    @empty
-
-                        <h4>Product not found!!</h4>
-                    @endforelse
-
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#">01</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">02</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">03</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#"><i class="fas fa-angle-right"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                <div id="product-list" class="row justify-content-center shop_wrapper product-list gy-4 product-data">
+                @include('website.layouts.pages.product.partials.products')
+                    <!-- Pagination -->
                 </div>
             </div>
         </div>
@@ -337,10 +229,10 @@
 
         // Product search by category
 
-        $(document).on('change', '.category-checkbox', function () {
+        $(document).on('change', '.category-checkbox', function() {
             let selectedCategories = [];
 
-            $('.category-checkbox:checked').each(function () {
+            $('.category-checkbox:checked').each(function() {
                 selectedCategories.push($(this).val());
             });
 
@@ -350,10 +242,10 @@
                 data: {
                     category_ids: selectedCategories
                 },
-                success: function (response) {
+                success: function(response) {
                     $('#product-list').html(response.html); // এখানে প্রোডাক্ট বসবে
                 },
-                error: function () {
+                error: function() {
                     alert("কিছু ভুল হয়েছে!");
                 }
             });
@@ -362,10 +254,10 @@
 
         // Product search by brand
 
-        $(document).on('change', '.brand-checkbox', function () {
+        $(document).on('change', '.brand-checkbox', function() {
             let selectedBrands = [];
 
-            $('.brand-checkbox:checked').each(function () {
+            $('.brand-checkbox:checked').each(function() {
                 selectedBrands.push($(this).val());
             });
 
@@ -375,18 +267,39 @@
                 data: {
                     brand_ids: selectedBrands
                 },
-                success: function (response) {
+                success: function(response) {
                     $('.product-list').html(response.html); // এখানে প্রোডাক্ট বসবে
                 },
-                error: function () {
+                error: function() {
                     alert("কিছু ভুল হয়েছে!");
                 }
             });
         });
-
-
-
     </script>
+
+<script>
+    $(document).on('click', '.pagination a', function(event) {
+        event.preventDefault();
+        var page = $(this).attr('href').split('page=')[1];
+        fetchProducts(page);
+    });
+
+    function fetchProducts(page) {
+        $.ajax({
+            url: "/shop-page?page=" + page,
+            type: "GET",
+            success: function(data) {
+                $('.product-data').html(data);
+            },
+            error: function() {
+                alert('Something went wrong');
+            }
+        });
+    }
+</script>
+
+
+
 @endpush
 
 @include('website.layouts.inc.footer')

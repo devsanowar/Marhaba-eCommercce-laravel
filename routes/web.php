@@ -13,6 +13,7 @@ use App\Http\Controllers\Frontend\AboutPageController;
 use App\Http\Controllers\Frontend\SubscriberController;
 use App\Http\Controllers\Frontend\ContactPageController;
 use App\Http\Controllers\Frontend\CheckoutpageController;
+use App\Http\Controllers\Frontend\FaqController;
 use App\Http\Controllers\Frontend\SocialworkPageController;
 
 
@@ -57,6 +58,11 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog.page');
 Route::get('/blog/{post_slug}/', [BlogController::class, 'blogSinglePage'])->name('blog_single.page');
 
 
+Route::post('/subscribe-newsletter', [SubscriberController::class, 'subscribe'])->name('newsletter.subscribe');
+
+
+Route::get('/faq', [FaqController::class, 'index'])->name('faq.page');
+
 
 // Route::get('/project', [ProjectController::class, 'projectPage'])->name('project.page');
 // Route::get('/project/{project_slug}/', [ProjectController::class, 'projectSinglePage'])->name('projectSingle.page');
@@ -71,7 +77,7 @@ Route::get('/blog/{post_slug}/', [BlogController::class, 'blogSinglePage'])->nam
 
 // Route::get('/social-work-page', [SocialworkPageController::class, 'socialWorkPage'])->name('social_work_page.page');
 
-// Route::post('/subscribe-newsletter', [SubscriberController::class, 'subscribe'])->name('newsletter.subscribe');
+
 
 
 

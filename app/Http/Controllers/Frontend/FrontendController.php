@@ -61,17 +61,22 @@ class FrontendController extends Controller
         return view('website.home', compact(['banner', 'categories', 'achievements', 'reviews', 'about', 'featured_products', 'blogs', 'promobanners', 'social_icon', 'website_setting']));
     }
 
-    public function shopPage()
+    public function shopPage(Request $request)
     {
+        $pageTitle = 'Shop';
         $products = Product::where('is_active', 1)
             ->latest()
             ->select(['id', 'category_id', 'product_name', 'product_slug', 'regular_price', 'discount_price', 'discount_type', 'thumbnail'])
             ->paginate(12);
 
+        if ($request->ajax()) {
+            return view('website.layouts.pages.product.partials.products', compact('products'))->render();
+        }
+
         $categories = Category::get(['id', 'category_name', 'category_slug']);
         $brands = Brand::with('products')->get(['id', 'brand_name']);
 
-        return view('website.layouts.pages.product.shop-page', compact('products', 'categories', 'brands'));
+        return view('website.layouts.pages.product.shop-page', compact('products', 'categories', 'brands', 'pageTitle'));
     }
 
     public function productSinglePage($id)
@@ -125,6 +130,8 @@ class FrontendController extends Controller
         return response()->json(['suggestions' => []]);
     }
 
+
+
     public function priceFilter(Request $request)
     {
         $min = (float) $request->min_price;
@@ -154,6 +161,9 @@ class FrontendController extends Controller
 
         return $html;
     }
+
+
+
 
     // Categorywise product filter
     public function multiCategoryFilter(Request $request)
@@ -188,6 +198,9 @@ class FrontendController extends Controller
 
         return response()->json(['html' => $html]);
     }
+
+
+
 
     // Product filter by brand
 

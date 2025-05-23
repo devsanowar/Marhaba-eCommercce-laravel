@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\NewsletterSubscriber;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\FaqController;
@@ -20,6 +21,8 @@ use App\Http\Controllers\Admin\DistrictController;
 use App\Http\Controllers\Admin\ShippingController;
 use App\Http\Controllers\Admin\AboutPageController;
 use App\Http\Controllers\Admin\AdminPanelController;
+use App\Http\Controllers\Admin\NewslatterController;
+use App\Http\Controllers\Admin\SmsSettingController;
 use App\Http\Controllers\Admin\SocialIconController;
 use App\Http\Controllers\Admin\SocialWorkController;
 use App\Http\Controllers\Admin\WhyChoseUsController;
@@ -27,8 +30,8 @@ use App\Http\Controllers\Admin\AchievementController;
 use App\Http\Controllers\Admin\PromobannerController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\NotificationController;
-use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\PostCategoryController;
+use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\WebsiteSettingController;
 
 Route::prefix('admin')
@@ -113,7 +116,6 @@ Route::prefix('admin')
             Route::put('/promobanner/update', [PromobannerController::class, 'update'])->name('promobanner.update');
             Route::delete('/promobanner/delete/{id}', [PromobannerController::class, 'destroy'])->name('promobanner.destroy');
             Route::post('/promobanner/status-change', [PromobannerController::class, 'PromoBannerChangeStatus'])->name('promobanner.status');
-
         });
 
         // Categories
@@ -176,7 +178,6 @@ Route::prefix('admin')
         Route::put('payment-method/update/{id}', [PaymentMethodController::class, 'update'])->name('payment_method.update');
         Route::delete('payment-method/delete/{id}', [PaymentMethodController::class, 'destroy'])->name('payment_method.destroy');
 
-
         // Post Category
         Route::get('/post-category/', [PostCategoryController::class, 'index'])->name('post_category.index');
         Route::post('/post-category/store', [PostCategoryController::class, 'store'])->name('post_category.store');
@@ -184,7 +185,6 @@ Route::prefix('admin')
         Route::delete('/post-category/delete/{id}', [PostCategoryController::class, 'destroy'])->name('post_category.destroy');
         Route::post('/post-category/status-change/', [PostCategoryController::class, 'statusChange'])->name('post_category.status');
         Route::post('/post-category/status-change', [PostCategoryController::class, 'changeStatus'])->name('post_category.status');
-
 
         // Posts
         Route::resource('post', PostController::class);
@@ -205,4 +205,13 @@ Route::prefix('admin')
         Route::get('message', [InboxController::class, 'index'])->name('inboxed_message');
         Route::get('message-show/{id}', [InboxController::class, 'show'])->name('message.show');
         Route::delete('message/delete/{id}', [InboxController::class, 'destroy'])->name('message.destroy');
+
+        // Newsletter
+        Route::get('Newslatter', [NewslatterController::class, 'index'])->name('newslatter');
+        Route::get('Newslatter/destroy/{id}', [NewslatterController::class, 'destroy'])->name('newslatter.destroy');
+
+
+        // SMS Settings
+        Route::get('sms-settings', [SmsSettingController::class, 'edit'])->name('sms-settings.edit');
+        Route::put('sms-settings', [SmsSettingController::class, 'update'])->name('sms-settings.update');
     });

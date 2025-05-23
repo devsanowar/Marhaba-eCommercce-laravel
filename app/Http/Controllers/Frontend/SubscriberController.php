@@ -12,11 +12,11 @@ class SubscriberController extends Controller
     public function subscribe(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|unique:newsletter_subscribers,email',
+            'phone' => ['required', 'regex:/^(01[3-9][0-9]{8}|\+8801[3-9][0-9]{8})$/', 'unique:newsletter_subscribers,phone'],
         ]);
 
         NewsletterSubscriber::create([
-            'email' => $request->email
+            'phone' => $request->phone,
         ]);
 
         return response()->json(['success' => true]);

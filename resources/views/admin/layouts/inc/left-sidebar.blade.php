@@ -188,6 +188,10 @@
             {{-- Shared: Inbox, Settings, Logout --}}
             <li class="{{ $ismMessagePageActive ? 'active' : '' }}"><a href="{{ route('inboxed_message') }}"><i class="zmdi zmdi-email"></i><span>Messages</span></a></li>
 
+            <li class="{{ $ismMessagePageActive ? 'active' : '' }}"><a href="{{ route('newslatter') }}"><i class="zmdi zmdi-accounts"></i><span>Subscriber</span></a></li>
+
+            <li class="{{ $ismMessagePageActive ? 'active' : '' }}"><a href="{{ route('sms-settings.edit') }}"><i class="zmdi zmdi-settings"></i><span>SMS Settings</span></a></li>
+
             <li class="">
                 <a href="javascript:void(0);" class="menu-toggle">
                     <i class="zmdi zmdi-folder"></i>
@@ -215,6 +219,7 @@
                     <li class="{{ request()->routeIs('website_setting') ? 'active' : '' }}">
                         <a href="{{ route('website_setting') }}">Website Setting</a>
                     </li>
+
                 </ul>
             </li>
 

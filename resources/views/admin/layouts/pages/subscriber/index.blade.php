@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title', 'All Message')
+@section('title', 'All Subscriber')
 
 @push('styles')
 
@@ -18,34 +18,26 @@
         <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
             <div class="card">
                 <div class="card-header">
-                    <h4> All Subscriber</h4>
+                    <h4> All Email</h4>
                 </div>
                 <div class="body">
-                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                    <table id="subscriberDataTable" class="table table-bordered table-striped table-hover js-basic-example dataTable">
                         <thead>
                             <tr>
                                 <th>S/N</th>
-                                <th>Name</th>
-								<th>Email</th>
-								<th>Address</th>
+                                <th>Phone</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach ($messages as $key=>$message)
+                            @foreach ($subscribers as $key=>$subscriber)
                             <tr>
                                 <td>{{$key+1 }}</td>
-								<td>{{ $message->name }}</td>
-								<td>{{ $message->email }}</td>
-								<td>{{ $message->subject }}</td>
-								<td>{!! Str::words($message->message, 6, '...') !!}</td>
-
+								<td>{{ $subscriber->phone }}</td>
                                 <td>
 
-                                    <a href="{{ route('message.show', $message->id) }}" class="btn btn-warning btn-sm"> <i class="material-icons text-white">visibility</i></a>
-
-                                    <form class="d-inline-block" action="{{ route('message.destroy', $message->id) }}" method="POST">
+                                    <form class="d-inline-block" action="{{ route('newslatter.destroy', $subscriber->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm show_confirm"><i class="material-icons">delete</i></button>
@@ -108,6 +100,19 @@
             });
 
     });
+
+
+    // Pagelength override scripts
+
+    $.extend(true, $.fn.dataTable.defaults, {
+        "pageLength": 20,
+        "lengthMenu": [ [10, 20, 50, -1], [10, 20, 50, "All"] ]
+    });
+
+    $(document).ready(function() {
+        $('#subscriberDataTable').DataTable();
+    });
+
 
 
 </script>
