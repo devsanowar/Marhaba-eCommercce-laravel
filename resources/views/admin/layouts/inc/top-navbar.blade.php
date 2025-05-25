@@ -46,14 +46,16 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <form method="POST" action="{{ route('logout') }}">
+                                <form method="POST" action="{{ route('logout') }}" style="padding:10px 15px">
                                     @csrf
-                                <a href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
-                                <div class="icon-circle g-bg-cyan"> <i class="material-icons">exit_to_app</i> </div>
-                                <div class="menu-info">
-                                    <h4><b>Sign Out</b> </h4>
-                                </div>
-                                </a>
+                                    <button type="submit" style="all:unset; cursor:pointer; display:flex; align-items:center;">
+                                        <div class="icon-circle g-bg-cyan">
+                                            <i class="material-icons">exit_to_app</i>
+                                        </div>
+                                        <div class="menu-info-custom" style="margin-left: 8px; top:0">
+                                            <h4><b>Sign Out</b></h4>
+                                        </div>
+                                    </button>
                                 </form>
                             </li>
                         </ul>

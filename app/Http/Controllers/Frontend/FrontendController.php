@@ -29,7 +29,7 @@ class FrontendController extends Controller
         $banner = Banner::select(['id', 'title', 'sub_title', 'description', 'button_name', 'button_url', 'image'])->first();
         $categories = Category::with('products')->where('category_slug', '!=', 'default')->select('id', 'category_name', 'image', 'category_slug')->get();
 
-        $promobanners = Promobanner::where('is_active', 1)->latest()->get(['id','image']);
+        $promobanners = Promobanner::where('is_active', 1)->latest()->get(['id','image', 'url']);
 
         $about = About::first();
         $social_icon = WebsiteSocialIcon::select(['id', 'messanger_url'])->first();

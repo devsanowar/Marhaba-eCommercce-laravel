@@ -12,12 +12,22 @@
                     @csrf
 
                     <div class="form-group mb-4">
-                        <label><b>Imagek</b></label>
+                        <label><b>Image</b></label>
                         <div class="input-group">
                             <div class="form-line case-input">
                                 <input type="file" class="form-control" name="image">
                             </div>
                             <div class="text-danger font-weight-bold mt-2" id="imageError"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label><b>Page Url</b></label>
+                        <div class="input-group">
+                            <div class="form-line case-input">
+                                <input type="text" class="form-control pl-2" name="url" placeholder="Enter Page Url">
+                            </div>
+                            <div class="text-danger font-weight-bold mt-2" id="urlError"></div>
                         </div>
                     </div>
 

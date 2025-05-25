@@ -43,7 +43,7 @@
                 </div>
                 <div class="card-body" id="invoice">
                     <div class="container border p-4">
-                        <h2 class="text-center mb-4"><img style="width:30%" src="{{ asset($setting->website_logo) }}" alt="Logo" /></h2>
+                        <h2 class="text-center mb-4"><img style="width:20%" src="{{ asset($setting->website_logo) }}" alt="Logo" /></h2>
                         <h5 class="text-center text-muted mb-4">Invoice</h5>
 
                         <div class="row mt-4">
@@ -72,8 +72,17 @@
                                 </tr>
                             </thead>
 
+                            @php
+                                $subtotal = 0;
+                            @endphp
+
                             <tbody>
                                 @foreach ($order->orderItems as $key => $orderItem)
+                                 @php
+                                    $total = $orderItem->price * $orderItem->quantity;
+                                    $subtotal += $total;
+                                @endphp
+
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $orderItem->product->product_name }}</td>
@@ -82,6 +91,11 @@
                                     <td>{{ $orderItem->quantity * $orderItem->price }}</td>
                                 </tr>
                                 @endforeach
+                                <tr class="custom-tr-class">
+                                    <th colspan="4" style="text-align:right">Sub Total:</th>
+                                    <th>{{ number_format($subtotal, 2)}} TK</th>
+                                </tr>
+
                                 <tr class="custom-tr-class">
                                     <th colspan="4" style="text-align:right">Shipping Cost:</th>
                                     <th>{{ number_format($order->shipping_charge, 2) }} TK</th>

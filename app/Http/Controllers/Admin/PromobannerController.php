@@ -14,7 +14,7 @@ class PromobannerController extends Controller
 {
     public function index()
     {
-        $promobanners = Promobanner::latest()->get(['id', 'image', 'is_active']);
+        $promobanners = Promobanner::latest()->get(['id', 'image', 'url', 'is_active']);
         return view('admin.layouts.pages.promo.index', compact('promobanners'));
     }
 
@@ -23,6 +23,7 @@ class PromobannerController extends Controller
         $promoBanner = $this->promoImage($request);
         Promobanner::create([
             'image' => $promoBanner,
+            'url' => $request->url,
             'is_active' => $request->is_active,
         ]);
 
@@ -52,12 +53,14 @@ class PromobannerController extends Controller
         // Update the correct column name
         $promobanner->update([
             'image' => $promobanner->image,
+            'url' => $request->url,
             'is_active' => $request->is_active,
         ]);
 
         return response()->json([
             'success' => 'Promo Banner updated successfully!',
             'image' => asset($promobanner->image),
+            'url' => $promobanner->url,
             'status' => $promobanner->is_active ? 'Active' : 'Inactive',
         ]);
     }

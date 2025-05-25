@@ -22,6 +22,7 @@ class SmsSettingController extends Controller
             'api_secret'  => 'required',
             'request_type' => 'required',
             'message_type' => 'required',
+            'default_message' => 'required',
         ]);
 
         $setting = SmsSetting::first();
@@ -32,6 +33,7 @@ class SmsSettingController extends Controller
             'api_secret'  => $request->api_secret,
             'request_type' => $request->request_type,
             'message_type' => $request->message_type,
+            'default_message' => $request->default_message,
             'is_active'   => $request->has('is_active'),
         ]);
 

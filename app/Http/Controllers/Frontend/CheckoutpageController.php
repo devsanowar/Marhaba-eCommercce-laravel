@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\Paymentmethod;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\Blocklist;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CheckoutpageController extends Controller
@@ -47,7 +48,7 @@ class CheckoutpageController extends Controller
         $request->validate([
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'phone' => 'required',
+            'phone' => ['required', 'regex:/^(01[3-9][0-9]{8}|\+8801[3-9][0-9]{8})$/'],
             'district_id' => 'required|exists:districts,id',
             'upazila_id' => 'required|exists:upazilas,id',
             'address' => 'required|string',
@@ -57,6 +58,12 @@ class CheckoutpageController extends Controller
         $cart = session()->get('cart', []);
         if (empty($cart)) {
             return back()->with('error', 'কার্ট খালি!');
+        }
+
+        $blockNumber = Blocklist::pluck('number')->toArray();
+
+        if(in_array($request->phone, $blockNumber)){
+            return back()->with('error', 'দুঃখিত, মোবাইল নম্বরটি ব্লক করা হয়েছে। অনুগ্রহ করে একটি বৈধ নম্বর প্রদান করুন।');
         }
 
         $total = 0;

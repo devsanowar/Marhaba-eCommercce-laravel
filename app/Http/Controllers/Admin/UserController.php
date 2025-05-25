@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -144,5 +145,17 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('user.create')->with('success', 'User deleted successfully');
+    }
+
+
+
+    public function customerList(){
+        $customers = Order::select(['id', 'first_name', 'last_name', 'phone', 'address'])->get();
+        return view('admin.layouts.profile.show_clint', compact('customers'));
+    }
+
+
+    public function destroy($id){
+
     }
 }

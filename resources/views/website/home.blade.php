@@ -73,7 +73,7 @@
         <div class="row gy-4">
             @forelse ($promobanners as $promobanner)
             <div class="col-lg-6" data-aos="fade-right">
-                <a href="/shop.html" class="offer">
+                <a href="{{ $promobanner->url }}" class="offer">
                     <img src="{{ asset($promobanner->image) }}" alt="" />
                 </a>
             </div>

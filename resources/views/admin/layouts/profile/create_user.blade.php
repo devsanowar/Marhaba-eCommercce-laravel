@@ -11,7 +11,9 @@
 @section('admin_content')
 
 <div class="container-fluid">
+
     <div class="row clearfix">
+
         <div class="col-lg-5 col-md-5 col-sm-12 mt-4">
             <div class="card">
                 <div class="card-header">
@@ -127,7 +129,11 @@
         <div class="col-lg-7 col-md-7 col-sm-12 mt-4">
             <div class="card">
                 <div class="card-header">
-                    <h4 style="display: inline-block"> All Users</h4>
+                    <h4>
+                        All Users
+                        <a href="{{ route('customerList') }}" class="btn btn-primary text-uppercase" style="float: right;">View Clients</a>
+                    </h4>
+
                 </div>
                 <div class="body">
                     <table class="table table-bordered table-striped table-hover">

@@ -9,9 +9,8 @@
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
             <div class="card">
-                <div class="header">
-                    <h2 class="text-uppercase"> Create Brand <span><a href="{{ route('brand.index') }}" class="btn btn-primary right">All Brand</a></span></h2>
-
+                <div class="card-header">
+                    <h4 class="text-uppercase"> Create Brand <span><a href="{{ route('brand.index') }}" class="btn btn-primary right">All Brand</a></span></h4>
                 </div>
                 <div class="body">
                     <form class="form-horizontal" action="{{ route('brand.store') }}"

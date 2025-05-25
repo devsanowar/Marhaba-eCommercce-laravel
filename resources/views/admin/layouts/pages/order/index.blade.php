@@ -13,42 +13,22 @@
     <link rel="stylesheet" href="{{ asset('backend') }}/assets/plugins/bootstrap-select/css/bootstrap-select.css" />
 
     <style>
-        .bootstrap-select>.dropdown-toggle.bs-placeholder,
-        .bootstrap-select>.dropdown-toggle.bs-placeholder:hover,
-        .bootstrap-select>.dropdown-toggle.bs-placeholder:focus,
-        .bootstrap-select>.dropdown-toggle.bs-placeholder:active {
-            color: #444;
-        }
-
-        .form-group .form-line.access_info {
-            border: 1px solid #424242 !important;
-            padding-left: 10px;
-        }
-
-        .btn.btn-primary.btn-lg.custom_btn {
-            padding: 10px 15px;
-        }
-
-        .btn-group.bootstrap-select.form-control.show-tick.custom-padding button.btn.dropdown-toggle.btn-default {
-            padding-bottom: 0px;
-        }
-
-        .btn-group.bootstrap-select.form-control.show-tick.custom-padding {
-            height: unset;
-        }
 
         .table td,
         .table th {
             vertical-align: middle;
         }
 
+        .bootstrap-select.btn-group.show-tick>.btn {
+            padding-left: 10px;
+            padding-right: -5px;
+        }
+
 
         .filter-form {
-            background: #f9f9f9;
-            padding: 20px 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            margin-bottom: 30px;
+            padding: 0px 5px;
+            margin-bottom: 40px;
+            margin-top: 20px;
         }
 
         .filter-form label {
@@ -59,10 +39,6 @@
             display: block;
         }
 
-        .filter-form .form-control {
-            border-radius: 8px;
-            height: 44px;
-        }
 
         .filter-form .custom_btn {
             padding: 10px 25px;
@@ -102,26 +78,36 @@
             <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
 
                 <div class="card">
-                    <div class="card-header pb-0">
-                        <h4> All Orders </h4>
+                    <div class="card-header pb-0 d-flex justify-content-between">
+                        <h4>All Orders</h4>
+                        <div>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#blocklistModal">
+                                Add to Blocklist
+                            </button>
+                        </div>
+                        <div>
+                            <a href="{{ route('block.list') }}" class="btn btn-primary">Block Lists</a>
+                        </div>
                     </div>
                     <div class="body">
                         <form id="orderFilterForm" class="filter-form">
                             @csrf
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6">
-                                    <label for="start_date">From Date*</label>
-                                    <input type="date" name="start_date" id="start_date" class="form-control">
+                            <div class="row g-3 align-items-center">
+
+                                <div class="col-lg-3 col-md-6 d-flex align-items-center">
+                                    <input type="date" name="start_date" id="start_date" class="form-control"
+                                        style="width: 100%">
                                 </div>
 
-                                <div class="col-lg-3 col-md-6">
-                                    <label for="end_date">To Date</label>
-                                    <input type="date" name="end_date" id="end_date" class="form-control">
+                                <div class="col-lg-3 col-md-6 d-flex align-items-center">
+                                    <label for="end_date" class="me-2 mb-0 fw-bold" style="width: 20%">To</label>
+                                    <input type="date" name="end_date" id="end_date" class="form-control"
+                                        style="width: 80%">
                                 </div>
 
-                                <div class="col-lg-3 col-md-6">
-                                    <label for="status">Order Status</label>
-                                    <select name="status" id="status" class="form-control show-tick">
+                                <div class="col-lg-4 col-md-6 d-flex align-items-center">
+                                    <label for="status" class="me-2 mb-0 fw-bold" style="width: 60%">Order Status</label>
+                                    <select name="status" id="status" class="form-control show-tick" style="width: 40%">
                                         <option value="">All</option>
                                         <option value="pending">Pending</option>
                                         <option value="confirmed">Confirmed</option>
@@ -130,12 +116,15 @@
                                     </select>
                                 </div>
 
-                                <div class="col-lg-3 col-md-6 d-flex align-items-end">
+                                <div class="col-lg-2 col-md-6 d-flex align-items-center justify-content-start">
                                     <button type="submit" class="btn btn-warning custom_btn text-white">Show</button>
                                 </div>
+
                             </div>
                         </form>
-                        <table id="orderDataTable" class="table table-bordered table-striped table-hover dataTable js-exportable">
+
+                        <table id="orderDataTable"
+                            class="table table-bordered table-striped table-hover dataTable js-exportable">
                             <thead>
                                 <tr>
                                     <th style="width: 30px">S/N</th>
@@ -194,7 +183,7 @@
                                                                     Delivered</option>
                                                             </select>
                                                         </div>
-                                                        <div class="col-lg-4 col-md-4 status-update-button">
+                                                        <div class="col-lg-4 col-md-4 status-update-button pl-0 mt-1">
                                                             <button type="submit"
                                                                 class="btn btn-warning btn-sm text-white">Update</button>
                                                         </div>
@@ -225,6 +214,8 @@
             </div>
         </div>
     </div>
+
+    @include('admin.layouts.pages.order.add-block')
 
 
 @endsection
@@ -277,9 +268,8 @@
             });
 
         });
-    </script>
 
-    <script>
+        // Order filter
         $('#orderFilterForm').on('submit', function(e) {
             e.preventDefault();
 
@@ -303,10 +293,8 @@
                 }
             });
         });
-    </script>
 
-
-    <script>
+        //Order status change
         $(document).on('submit', '.order-status-form', function(e) {
             e.preventDefault();
             let form = $(this);
@@ -327,6 +315,12 @@
                     status: status
                 },
                 success: function(res) {
+                    toastr.options = {
+                        "closeButton": true,
+                        "progressBar": true,
+                        "timeOut": "1500",
+                        "extendedTimeOut": "1000"
+                    };
                     toastr.success(res.message);
                 },
                 error: function(xhr) {
@@ -335,9 +329,9 @@
                 }
             });
         });
-    </script>
 
-    <script>
+
+        // Pagination override from dataTable
         $.extend(true, $.fn.dataTable.defaults, {
             "pageLength": 20,
             "lengthMenu": [
@@ -349,5 +343,49 @@
         $(document).ready(function() {
             $('#orderDataTable').DataTable();
         });
+
+
+        // Block number added script
+        $(document).ready(function() {
+            $('#blocklistForm').submit(function(e) {
+                e.preventDefault();
+
+                let form = $(this);
+                let url = form.attr('action');
+                let formData = form.serialize();
+
+                // Clear previous error
+                $('#numberError').text('');
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        toastr.options = {
+                            "closeButton": true,
+                            "progressBar": true,
+                            "timeOut": "1500",
+                            "extendedTimeOut": "1000"
+                        };
+                        toastr.success(response.success);
+                        $('#blocklistModal').modal('hide');
+                        form[0].reset();
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422) {
+                            let errors = xhr.responseJSON.errors;
+                            if (errors.number) {
+                                $('#numberError').text(errors.number[0]);
+                            }
+                        } else {
+                            toastr.success(response.error);
+                        }
+                    }
+                });
+            });
+        });
+
     </script>
+
 @endpush

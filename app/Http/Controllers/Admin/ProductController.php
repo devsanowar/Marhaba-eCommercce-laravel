@@ -220,18 +220,7 @@ class ProductController extends Controller
         return redirect()->back();
     }
 
-    // Product thumbnail image
-    private function productImage(Request $request)
-    {
-        if ($request->hasFile('thumbnail')) {
-            $image = Image::read($request->file('thumbnail'));
-            $imageName = time() . '-' . $request->file('thumbnail')->getClientOriginalName();
-            $destinationPath = public_path('uploads/product_image/');
-            $image->save($destinationPath . $imageName);
-            return 'uploads/product_image/' . $imageName;
-        }
-        return null;
-    }
+
 
     // Product multiple images
 
@@ -339,7 +328,18 @@ class ProductController extends Controller
     }
 
 
-
+    // Product thumbnail image
+    private function productImage(Request $request)
+    {
+        if ($request->hasFile('thumbnail')) {
+            $image = Image::read($request->file('thumbnail'));
+            $imageName = time() . '-' . $request->file('thumbnail')->getClientOriginalName();
+            $destinationPath = public_path('uploads/product_image/');
+            $image->save($destinationPath . $imageName);
+            return 'uploads/product_image/' . $imageName;
+        }
+        return null;
+    }
 
 
 

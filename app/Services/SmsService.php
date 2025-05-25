@@ -16,12 +16,7 @@ class SmsService
             return false;
         }
 
-        $message = "সম্মানিত গ্রাহক,\n" .
-                   "আপনার অর্ডারটি সফলভাবে গ্রহন করা হয়েছে।" .
-                   "আপনার অর্ডার নং: #{$order->order_id}\n\n" .
-                   "বিল এমাউন্ট: {$order->total_price} টাকা\n\n" .
-                   "\n Mymensingh Pet Shop \n" .
-                   "01610608606";
+        $message = $setting->default_message;
 
         $data = [
             'api_key'      => $setting->api_key,

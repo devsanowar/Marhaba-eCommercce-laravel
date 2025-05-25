@@ -42,12 +42,22 @@
 @section('admin_content')
     <div class="block-header">
         <div class="row">
-            <div class="col-lg-7 col-md-6 col-sm-12">
+            <div class="col-lg-3 col-md-6 col-sm-12">
                 <h2>Dashboard
                     <small class="text-muted">Welcome to {{ $website_setting->website_title }} web application</small>
                 </h2>
             </div>
-            <div class="col-lg-5 col-md-6 col-sm-12">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="btn btn-primary" href="{{ route('today') }}"> Today's Data </a></li>
+                    <li class="breadcrumb-item"><a class="btn btn-primary" href="{{ route('sevenday') }}"> 07 Day </a></li>
+
+                    <li class="breadcrumb-item"><a class="btn btn-primary" href="{{ route('fiftinday') }}"> 15 Day </a></li>
+
+                    <li class="breadcrumb-item"><a class="btn btn-primary" href="{{ route('thirtyday') }}"> 30 Day </a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
                 <ul class="breadcrumb float-md-right">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}" target="_blank"><i class="zmdi zmdi-home"></i>
                             {{ $website_setting->website_title }}</a></li>

@@ -46,6 +46,11 @@
                                     value="{{ $setting->message_type }}">
                             </div>
 
+                            <div class="mb-3">
+                                <label>Default Message</label>
+                                <textarea name="default_message" id="ckeditor" class="form-control">{!! $setting->default_message !!}</textarea>
+                            </div>
+
                             <div class="form-check mb-3">
                                 <input class="form-check-input" type="checkbox" name="is_active"
                                     {{ $setting->is_active ? 'checked' : '' }}>

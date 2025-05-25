@@ -27,11 +27,17 @@ use App\Http\Controllers\Admin\SocialIconController;
 use App\Http\Controllers\Admin\SocialWorkController;
 use App\Http\Controllers\Admin\WhyChoseUsController;
 use App\Http\Controllers\Admin\AchievementController;
+use App\Http\Controllers\Admin\BlocklistController;
+use App\Http\Controllers\Admin\CtaController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PromobannerController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\PaymentMethodController;
+use App\Http\Controllers\Admin\PrivacypolicyController;
+use App\Http\Controllers\Admin\ReturnrefundController;
+use App\Http\Controllers\Admin\TermsAdnCondiotnController;
 use App\Http\Controllers\Admin\WebsiteSettingController;
 
 Route::prefix('admin')
@@ -50,6 +56,8 @@ Route::prefix('admin')
             Route::post('profile/{id}/image', [UserController::class, 'profileImageUpdate'])->name('update.profile.image');
             Route::post('password/{id}/change', [UserController::class, 'passwordUpdate'])->name('update.password');
             Route::delete('delete/{id}', [UserController::class, 'destroyUser'])->name('user.destroy');
+
+            Route::get('/customer-list/', [UserController::class, 'customerList'])->name('customerList');
         });
 
         // Website Settings
@@ -67,6 +75,12 @@ Route::prefix('admin')
             Route::get('social-icon', [SocialIconController::class, 'socialIcon'])->name('website_social_icon.index');
             Route::post('social-icon/update', [SocialIconController::class, 'socialIconUpdate'])->name('website_social_icon.update');
         });
+
+        // Dashboard Routes
+        Route::get('today-data', [DashboardController::class, 'todays'])->name('today');
+        Route::get('sevenday-data', [DashboardController::class, 'sevenday'])->name('sevenday');
+        Route::get('fiftinday-data', [DashboardController::class, 'fiftinday'])->name('fiftinday');
+        Route::get('thirty-data', [DashboardController::class, 'thirtyday'])->name('thirtyday');
 
         // Admin Panel Settings
         Route::prefix('admin-panel')->group(function () {
@@ -116,6 +130,12 @@ Route::prefix('admin')
             Route::put('/promobanner/update', [PromobannerController::class, 'update'])->name('promobanner.update');
             Route::delete('/promobanner/delete/{id}', [PromobannerController::class, 'destroy'])->name('promobanner.destroy');
             Route::post('/promobanner/status-change', [PromobannerController::class, 'PromoBannerChangeStatus'])->name('promobanner.status');
+
+
+            // Cta routes here
+            Route::resource('cta', CtaController::class);
+            Route::post('/cta/status-change', [CtaController::class, 'ctaChangeStatus'])->name('cta.status');
+
         });
 
         // Categories
@@ -210,8 +230,26 @@ Route::prefix('admin')
         Route::get('Newslatter', [NewslatterController::class, 'index'])->name('newslatter');
         Route::get('Newslatter/destroy/{id}', [NewslatterController::class, 'destroy'])->name('newslatter.destroy');
 
-
         // SMS Settings
         Route::get('sms-settings', [SmsSettingController::class, 'edit'])->name('sms-settings.edit');
         Route::put('sms-settings', [SmsSettingController::class, 'update'])->name('sms-settings.update');
+
+        // block list routes
+        Route::get('block-list', [BlocklistController::class, 'index'])->name('block.list');
+        Route::post('store-blocklist', [BlocklistController::class, 'store'])->name('block.number');
+        Route::delete('/unblock/{id}', [BlocklistController::class, 'unblock'])->name('unblock.number');
+
+        // Privacy policy route
+        Route::get('privacy-policy', [PrivacypolicyController::class, 'privacyPolicy'])->name('privacy_policy');
+        Route::put('/privacy-policy/{id}', [PrivacypolicyController::class, 'update'])->name('privacy_policy.update');
+
+        //Return and refund
+        Route::get('return-refund', [ReturnrefundController::class, 'returnRefund'])->name('return_refund');
+        Route::put('/return-refund/update/{id}', [ReturnrefundController::class, 'update'])->name('return_refund.update');
+
+        // Terms And Condition
+        Route::get('/terms-and-condition', [TermsAdnCondiotnController::class, 'termsAndCondition'])->name('terms_and_condtion');
+        Route::put('/terms-and-condition/update/{id}', [TermsAdnCondiotnController::class, 'update'])->name('terms_and_conditon.update');
+
+
     });

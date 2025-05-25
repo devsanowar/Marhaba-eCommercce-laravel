@@ -86,6 +86,10 @@
                         <a href="{{ route('why-choose-us.index') }}"><span>Why choose us</span></a>
                     </li>
 
+                    <li class="{{ request()->routeIs('cta.*') ? 'active' : '' }}">
+                        <a href="{{ route('cta.index') }}"><span>CTA</span></a>
+                    </li>
+
                     <li class="{{ request()->routeIs('achievement.*') ? 'active' : '' }}">
                         <a href="{{ route('achievement.index') }}"><span>Achievement</span></a>
                     </li>
@@ -199,13 +203,13 @@
                 </a>
                 <ul class="ml-menu">
                     <li class="">
-                        <a href="">Privacy Policy</a>
+                        <a href="{{ route('privacy_policy') }}">Privacy Policy</a>
                     </li>
                     <li class="">
-                        <a href="">Terms And Condition</a>
+                        <a href="{{ route('terms_and_condtion') }}">Terms And Condition</a>
                     </li>
                     <li class="">
-                        <a href="">Refund And Return</a>
+                        <a href="{{ route('return_refund') }}">Return & Refund </a>
                     </li>
                 </ul>
             </li>

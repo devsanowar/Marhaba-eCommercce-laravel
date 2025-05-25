@@ -9,6 +9,10 @@
 <link rel="stylesheet" href="{{ asset('backend') }}/assets/css/color_skins.css">
 <link rel="stylesheet" href="{{ asset('backend') }}/assets/css/toastr.css">
 <style>
+body.modal-open {
+    overflow: hidden !important;
+    padding-right: 0px !important;
+}
 
 
     .input-group .input-group-addon {
@@ -74,6 +78,18 @@
     .btn:not(.btn-link):not(.btn-circle) i {
 	font-size: 16px;
 }
+
+
+.menu-info-custom {
+	position: relative;
+	top: 8% !important;
+}
+
+.menu-info-custom h4{
+    font-size: 16px;
+}
+
+
 
 </style>
 @stack('styles')

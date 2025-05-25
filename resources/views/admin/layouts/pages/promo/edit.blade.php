@@ -26,6 +26,16 @@
                         <div class="text-danger font-weight-bold mt-2" id="imageError"></div>
                     </div>
 
+                    <div class="form-group mb-4">
+                        <label><b>Page Url</b></label>
+                        <div class="input-group">
+                            <div class="form-line case-input">
+                                <input type="text" name="url" id="promo_url" class="form-control" placeholder="Enter URL" required>
+                            </div>
+                            <div class="text-danger font-weight-bold mt-2" id="urlError"></div>
+                        </div>
+                    </div>
+
 
                     <div class="mb-3">
                         <label class="form-label">Status</label>
@@ -37,7 +47,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-info">Update District</button>
+                        <button type="submit" class="btn btn-info">Update Promo Banner</button>
                     </div>
                 </form>
             </div>
@@ -47,82 +57,90 @@
 
 
 @push('scripts')
-    <script>
-        $(document).ready(function() {
+<script>
+    $(document).ready(function () {
 
-            $(".editPromoBanner").click(function() {
-                const promobannerId = $(this).data("id");
-                const promobannerImage = $(this).data("image");
-                const status = $(this).data('status');
+        // ✅ Edit button click
+        $(".editPromoBanner").click(function () {
+            const promobannerId = $(this).data("id");
+            const promobannerImage = $(this).data("image");
+            const promobannerUrl = $(this).data("url");
+            const status = $(this).data("status");
 
-                // ✅ Cache bust করে ইমেজ লোড
-                const imageWithTimestamp = promobannerImage + '?t=' + new Date().getTime();
+            // ✅ Image preview cache bust
+            const imageWithTimestamp = promobannerImage + '?t=' + new Date().getTime();
 
+            // Set hidden input & status
+            $("#promo_banner_id").val(promobannerId);
+            $('#is_active').val(String(status)).trigger('change');
 
-                // Set hidden field
-                $("#promo_banner_id").val(promobannerId);
-                $('#is_active').val(status).trigger('change');
+            // Set image preview
+            $("#oldImagePreview").attr("src", imageWithTimestamp);
 
+            // ✅ Set URL field in modal
+            $("#promo_url").val(promobannerUrl);
 
-                // ✅ Set status with type safety
-                $('#is_active').val(String(status)).trigger('change');
+            // Show modal
+            $("#editPromoBannerModal").modal("show");
+        });
 
-                // ✅ Update image preview
-                $("#oldImagePreview").attr("src", imageWithTimestamp);
+        // ✅ Form submission
+        $("#editPromoBannerForm").submit(function (e) {
+            e.preventDefault();
 
-                // Show modal
-                $("#editPromoBannerModal").modal("show");
-            });
+            const form = $('#editPromoBannerForm')[0];
+            const formData = new FormData(form);
+            const promobannerId = $("#promo_banner_id").val();
+            formData.append('_method', 'PUT'); // for PUT
 
-            $("#editPromoBannerForm").submit(function(e) {
-                e.preventDefault();
+            $.ajax({
+                url: "{{ route('promobanner.update') }}",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.success, "Success", {
+                            timeOut: 1500,
+                            closeButton: true,
+                            progressBar: true
+                        });
 
-                const form = $('#editPromoBannerForm')[0];
-                const formData = new FormData(form);
-                const promobannerId = $("#promo_banner_id").val();
-                formData.append('_method', 'PUT'); // important for PUT route
+                        // ✅ Update image preview in table
+                        $("#promoBannerRow-" + promobannerId + " .promobanner-image img")
+                            .attr("src", response.image + '?t=' + new Date().getTime());
 
-                $.ajax({
-                    url: "{{ route('promobanner.update') }}",
-                    type: "POST",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.success) {
-                            toastr.success(response.success, "Success", {
-                                timeOut: 1500,
-                                closeButton: true,
-                                progressBar: true
-                            });
+                        // ✅ Update status button
+                        const button = $("#promoBannerRow-" + promobannerId + " .status-toggle-btn");
+                        button.text(response.status);
+                        button.removeClass("btn-success btn-danger")
+                            .addClass(response.status === 'Active' ? 'btn-success' : 'btn-danger');
 
-                            $("#promoBannerRow-" + promobannerId + " .promobanner-image img")
-                                .attr("src", response.image + '?t=' + new Date().getTime());
+                        // ✅ Update URL in the table
+                        $("#promoBannerRow-" + promobannerId + " .promobanner-url")
+                            .text(response.url);
 
-                            const button = $("#promoBannerRow-" + promobannerId +
-                                " .status-toggle-btn");
-                            button.text(response.status);
-                            button.removeClass("btn-success btn-danger")
-                                .addClass(response.status === 'Active' ? 'btn-success' :
-                                    'btn-danger');
+                        // ✅ Update edit button data attributes
+                        $(".editPromoBanner[data-id='" + promobannerId + "']")
+                            .data("image", response.image)
+                            .data("status", response.status === 'Active' ? 1 : 0)
+                            .data("url", response.url);
 
-                            // ✅ Update both image and status in the button's data attributes
-                            $(".editPromoBanner[data-id='" + promobannerId + "']")
-                                .data("image", response.image)
-                                .data("status", response.status === 'Active' ? 1 : 0);
-
-                            $("#editPromoBannerModal").modal("hide");
-                        } else {
-                            toastr.error(response.message || "Error updating banner.", "Error");
-                        }
-                    },
-                    error: function(xhr) {
-                        console.error("Error: ", xhr.responseText);
-                        toastr.error("Something went wrong!", "Error");
+                        // Hide modal
+                        $("#editPromoBannerModal").modal("hide");
+                    } else {
+                        toastr.error(response.message || "Error updating banner.", "Error");
                     }
-                });
+                },
+                error: function (xhr) {
+                    console.error("Error: ", xhr.responseText);
+                    toastr.error("Something went wrong!", "Error");
+                }
             });
         });
-    </script>
+    });
+</script>
+
 @endpush
