@@ -1,12 +1,5 @@
 @php
-    $homePageRoutes = [
-        'slider.*',
-        'about.*',
-        'why-choose-us.*',
-        'achievement.*',
-        'review.*',
-        'faq.*',
-    ];
+    $homePageRoutes = ['banner.*', 'about.*', 'promobanner.*', 'why-choose-us.*', 'achievement.*', 'review.*', 'faq.*', 'cta.*'];
     $isHomePageActive = false;
     foreach ($homePageRoutes as $route) {
         if (request()->routeIs($route)) {
@@ -15,8 +8,12 @@
         }
     }
 
-    $isPostActive = request()->routeIs('post.*');
-    $isProductActive = request()->routeIs('product.*') || request()->routeIs('category.*') || request()->routeIs('brand.*') || request()->routeIs('subcategory.*');
+    $isPostActive = request()->routeIs('post.*') || request()->routeIs('post_category.*');
+    $isProductActive =
+        request()->routeIs('product.*') ||
+        request()->routeIs('category.*') ||
+        request()->routeIs('brand.*') ||
+        request()->routeIs('subcategory.*');
     $isSettingsActive = request()->routeIs('website_setting') || request()->routeIs('website_setting.update');
 
     $isAboutPageActive = request()->routeIs('about_page.*');
@@ -25,25 +22,11 @@
     $isUpazilaPageActive = request()->routeIs('upazila.*');
     $isUserPageActive = request()->routeIs('user.*');
     $isPaymentMethodPageActive = request()->routeIs('payment_method.*');
-    $ismMessagePageActive = request()->routeIs('message.*');
-
-
-    $pendingOrder = App\Models\Order::where('status','pending')->count();
+    $isMessagePageActive = request()->routeIs('message.*') || request()->routeIs('inboxed_message');
+    $isShippingPageActive = request()->routeIs('shipping.*');
+    $pendingOrder = App\Models\Order::where('status', 'pending')->count();
 
 @endphp
-
-<style>
-    .order-count{
-        background: #0066ea;
-        padding: 5px;
-        border-radius: 50px;
-        font-size: 11px;
-        color: #fff;
-        margin-left: 6px !important;
-    }
-</style>
-
-
 <aside id="leftsidebar" class="sidebar">
     <!-- User Info -->
     <div class="user-info">
@@ -70,11 +53,11 @@
                     <span>Home Page</span>
                 </a>
                 <ul class="ml-menu">
-                    <li class="{{ request()->routeIs('slider.*') ? 'active' : '' }}">
+                    <li class="{{ request()->routeIs('banner.*') ? 'active' : '' }}">
                         <a href="{{ route('banner.index') }}"><span>Banner</span></a>
                     </li>
 
-                    <li class="{{ request()->routeIs('about.*') ? 'active' : '' }}">
+                    <li class="{{ request()->routeIs('promobanner.*') ? 'active' : '' }}">
                         <a href="{{ route('promobanner.index') }}"><span>Promo Banner</span></a>
                     </li>
 
@@ -134,9 +117,13 @@
             </li>
 
 
-            <li>
-                <a href="{{ route('shipping.index') }}"><i class="zmdi zmdi-money-box"></i><span>Shipping</span></a>
+            <li class="{{ $isShippingPageActive ? 'active' : '' }}">
+                <a href="{{ route('shipping.index') }}">
+                    <i class="zmdi zmdi-money-box"></i>
+                    <span>Shipping</span>
+                </a>
             </li>
+
 
 
 
@@ -151,16 +138,19 @@
             </li>
 
             <li class="{{ $isOrderPageActive ? 'active' : '' }}">
-                <a href="{{ route('order.index') }}"><i class="zmdi zmdi-shopping-cart"></i><span>Orders <span class="order-count">{{ $pendingOrder }}</span></span></a>
+                <a href="{{ route('order.index') }}"><i class="zmdi zmdi-shopping-cart"></i><span>Orders <span
+                            class="order-count">{{ $pendingOrder }}</span></span></a>
             </li>
 
 
             <li class="{{ $isPaymentMethodPageActive ? 'active' : '' }}">
-                <a href="{{ route('payment_method.index') }}"><i class="zmdi zmdi-money"></i><span>Payment Method</span></a>
+                <a href="{{ route('payment_method.index') }}"><i class="zmdi zmdi-money"></i><span>Payment
+                        Method</span></a>
             </li>
 
 
             {{-- Post Menu --}}
+
             <li class="{{ $isPostActive ? 'active open' : '' }}">
                 <a href="javascript:void(0);" class="menu-toggle">
                     <i class="zmdi zmdi-border-color"></i>
@@ -170,14 +160,12 @@
                     <li class="{{ request()->routeIs('post_category.index') ? 'active' : '' }}">
                         <a href="{{ route('post_category.index') }}">Category</a>
                     </li>
-
                     <li class="{{ request()->routeIs('post.create') ? 'active' : '' }}">
                         <a href="{{ route('post.create') }}">Add Post</a>
                     </li>
                     <li class="{{ request()->routeIs('post.index') ? 'active' : '' }}">
                         <a href="{{ route('post.index') }}">All Post</a>
                     </li>
-
                 </ul>
             </li>
 
@@ -190,11 +178,28 @@
             @endif
 
             {{-- Shared: Inbox, Settings, Logout --}}
-            <li class="{{ $ismMessagePageActive ? 'active' : '' }}"><a href="{{ route('inboxed_message') }}"><i class="zmdi zmdi-email"></i><span>Messages</span></a></li>
 
-            <li class="{{ $ismMessagePageActive ? 'active' : '' }}"><a href="{{ route('newslatter') }}"><i class="zmdi zmdi-accounts"></i><span>Subscriber</span></a></li>
+            <li class="{{ $isMessagePageActive ? 'active' : '' }}">
+                <a href="{{ route('inboxed_message') }}">
+                    <i class="zmdi zmdi-email"></i>
+                    <span>Messages</span>
+                </a>
+            </li>
 
-            <li class="{{ $ismMessagePageActive ? 'active' : '' }}"><a href="{{ route('sms-settings.edit') }}"><i class="zmdi zmdi-settings"></i><span>SMS Settings</span></a></li>
+            <li class="{{ request()->routeIs('newslatter') ? 'active' : '' }}">
+                <a href="{{ route('newslatter') }}">
+                    <i class="zmdi zmdi-accounts"></i>
+                    <span>Subscriber</span>
+                </a>
+            </li>
+
+            <li class="{{ request()->routeIs('sms-settings.*') ? 'active' : '' }}">
+                <a href="{{ route('sms-settings.edit') }}">
+                    <i class="zmdi zmdi-settings"></i>
+                    <span>SMS Settings</span>
+                </a>
+            </li>
+
 
             <li class="">
                 <a href="javascript:void(0);" class="menu-toggle">

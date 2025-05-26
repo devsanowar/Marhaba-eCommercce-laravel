@@ -52,9 +52,7 @@
                                 <label for="post_content_id"><b>Post Description</b></label>
                                 <div class="form-group">
                                     <div class="" style="border: 1px solid #ccc">
-                                        <textarea type="text" name="post_content" class="form-control summernote">
-                                        {!! $post->post_content !!}
-                                    </textarea>
+                                        <textarea type="text" name="post_content" class="form-control summernote">{!! $post->post_content !!}</textarea>
                                     </div>
                                 </div>
                             </div>

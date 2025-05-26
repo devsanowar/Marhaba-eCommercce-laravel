@@ -41,9 +41,7 @@
                                 <label for="banner_description"><b>Short Description</b></label>
                                 <div class="form-group">
                                     <div class="" style="border: 1px solid #ccc">
-                                        <textarea type="text" id="ckeditor" name="description" class="form-control">
-                                        {!! $about->description !!}
-                                    </textarea>
+                                        <textarea type="text" id="ckeditor" name="description" class="form-control">{!! $about->description !!}</textarea>
                                     </div>
                                 </div>
                             </div>

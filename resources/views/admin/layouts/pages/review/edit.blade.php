@@ -61,9 +61,7 @@
                             <label for="review_content"><b>Review Content*</b></label>
                             <div class="form-group">
                                 <div class="" style="border: 1px solid #ccc">
-                                    <textarea type="text" rows="4" name="review" class="form-control @error('review')invalid @enderror" >
-                                        {!! $review->review !!}
-                                    </textarea>
+                                    <textarea type="text" rows="4" name="review" class="form-control @error('review')invalid @enderror" >{!! $review->review !!}</textarea>
                                 </div>
                                 @error('review')
                                 <div class="text-danger">{{ $message }}</div>

@@ -57,7 +57,7 @@
                                 <label for="mission_content_id"><b>Mission Content</b></label>
                                 <div class="form-group">
                                     <div class="" style="border: 1px solid #ccc">
-                                        <textarea rows="5" name="mission_content" class="form-control"> {!! $mission_vission->mission_content !!} </textarea>
+                                        <textarea rows="5" name="mission_content" class="form-control">{!! $mission_vission->mission_content !!}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -88,7 +88,7 @@
                                 <label for="footer_content"><b>Vision Contents</b></label>
                                 <div class="form-group">
                                     <div class="" style="border: 1px solid #ccc">
-                                        <textarea rows="5" name="vision_content" class="form-control"> {!! $mission_vission->vision_content !!} </textarea>
+                                        <textarea rows="5" name="vision_content" class="form-control">{!! $mission_vission->vision_content !!}</textarea>
                                     </div>
                                 </div>
                             </div>

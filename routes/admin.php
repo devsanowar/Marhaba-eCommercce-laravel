@@ -1,8 +1,7 @@
 <?php
 
-use App\Models\NewsletterSubscriber;
+
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
@@ -24,7 +23,6 @@ use App\Http\Controllers\Admin\AdminPanelController;
 use App\Http\Controllers\Admin\NewslatterController;
 use App\Http\Controllers\Admin\SmsSettingController;
 use App\Http\Controllers\Admin\SocialIconController;
-use App\Http\Controllers\Admin\SocialWorkController;
 use App\Http\Controllers\Admin\WhyChoseUsController;
 use App\Http\Controllers\Admin\AchievementController;
 use App\Http\Controllers\Admin\BlocklistController;
@@ -32,7 +30,6 @@ use App\Http\Controllers\Admin\CtaController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PromobannerController;
 use App\Http\Controllers\Admin\SubcategoryController;
-use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\PrivacypolicyController;

@@ -32,7 +32,7 @@
                             <label for="description"><b>Description ( Optional )</b></label>
                             <div class="form-group">
                                 <div class="" style="border: 1px solid #ccc">
-                                    <textarea type="text" rows="4" id="description" name="description" class="form-control"> </textarea>
+                                    <textarea type="text" rows="4" id="description" name="description" class="form-control"></textarea>
                                 </div>
                             </div>
                         </div>

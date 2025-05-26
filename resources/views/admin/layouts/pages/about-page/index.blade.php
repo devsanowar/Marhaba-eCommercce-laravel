@@ -77,9 +77,7 @@
                                 <label for="about_chairman"><b>About Chairman</b></label>
                                 <div class="form-group">
                                     <div class="" style="border: 1px solid #ccc">
-                                        <textarea type="text" id="ckeditor" name="about_chairman" class="form-control">
-                                        {!! $chairman->about_chairman !!}
-                                    </textarea>
+                                        <textarea type="text" id="ckeditor" name="about_chairman" class="form-control">{!! $chairman->about_chairman !!}</textarea>
                                     </div>
                                 </div>
                             </div>

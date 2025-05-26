@@ -51,10 +51,7 @@
                             <label for="banner_description"><b>Post Description</b></label>
                             <div class="form-group">
                                 <div class="" style="border: 1px solid #ccc">
-                                    <textarea type="text" name="post_content" class="summernote" >
-
-                                    </textarea>
-
+                                    <textarea type="text" name="post_content" class="summernote" ></textarea>
                                 </div>
                             </div>
                         </div>

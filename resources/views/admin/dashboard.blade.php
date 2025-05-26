@@ -1,29 +1,5 @@
 @extends('admin.layouts.app')
 
-<style>
-    .dashboard-icons i {
-        border: 1px solid #FF9F54;
-        padding: 6px;
-        border-radius: 10%;
-        background: #FF9F54;
-        color: #fff;
-        font-size: 20px;
-    }
-
-    .dashboard-icons i:hover {
-        color: #ff9f54;
-        background: #f4f4f4;
-        border-color: #f4f4f4;
-    }
-
-    /* Active btn style */
-    .filter-btn.active {
-        background-color: #ffa500 !important; /* অরেঞ্জ কালার */
-        border-color: #ffa500 !important;
-        color: #fff !important;
-    }
-
-</style>
 
 @section('admin_content')
     <div class="block-header">
