@@ -52,7 +52,7 @@
         </div>
         <div class="info-container">
             <div class="name" data-toggle="dropdown">{{ Auth::user()->name }}</div>
-            <div class="email">{{ Auth::user()->email }}</div>
+            {{-- <div class="email">{{ Auth::user()->email }}</div> --}}
         </div>
     </div>
     <!-- #User Info -->

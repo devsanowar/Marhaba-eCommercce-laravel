@@ -44,7 +44,8 @@ Route::prefix('admin')
     ->middleware(['auth', 'admin'])
     ->group(function () {
         // Dashboard
-        Route::get('dashboard', [AdminController::class, 'dasboard'])->name('admin.dashboard');
+        Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/dashboard/data', [AdminController::class, 'filterDashboardData'])->name('admin.dashboard.filter');
 
         // User Management
         Route::prefix('user')->group(function () {
@@ -77,6 +78,8 @@ Route::prefix('admin')
         });
 
         // Dashboard Routes
+
+
         Route::get('today-data', [DashboardController::class, 'todays'])->name('today');
         Route::get('sevenday-data', [DashboardController::class, 'sevenday'])->name('sevenday');
         Route::get('fiftinday-data', [DashboardController::class, 'fiftinday'])->name('fiftinday');

@@ -68,21 +68,14 @@
  <!-- ==================== Contact Form & Map Start Here ==================== -->
  <div class="contact-bottom py-120"  style="background: #F8F9FA">
      <div class="container">
-         <div class="bg-img" style="background-image: url({{ asset('frontend') }}/assets/images/thumbs/contact-bg.png)">
+         <div class="bg-img" style="background-image: url({{ asset('frontend') }}/assets/images/home/bg-banner.jpg)">
              <div class="row">
                  <div class="col-lg-12">
                      <div class="contact-bottom__inner">
                          <div class="row align-items-center justify-content-center">
                              <div class="col-lg-9 col-md-10 col-sm-10">
                                  <div class="contactus-form">
-                                     <div class="contactus-form__thumb-one">
-                                         <img src="{{ asset('frontend') }}/assets/images/thumbs/contact03.png"
-                                             alt="" />
-                                     </div>
-                                     <div class="contactus-form__thumb-two">
-                                         <img src="{{ asset('frontend') }}/assets/images/thumbs/contact04.png"
-                                             alt="" />
-                                     </div>
+
                                      <div class="row">
                                          <div class="col-lg-12">
                                              <div class="section-heading">

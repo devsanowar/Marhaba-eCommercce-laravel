@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Order;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Order;
+use App\Models\Contact;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
@@ -112,4 +114,46 @@ class DashboardController extends Controller
 
     //     return view('admin.orders.current_month', compact('orders'));
     // }
+
+
+
+
+
+public function loadStats(Request $request)
+{
+    $day = $request->get('day', 1);
+
+    $fromDate = now()->subDays($day - 1)->startOfDay();
+    $toDate = now()->endOfDay();
+
+    $orders = Order::whereBetween('created_at', [$fromDate, $toDate]);
+
+    $data = [
+        'total_order_amount' => $orders->sum('total_price'),
+        'order_count' => $orders->count(),
+        'pending_order_count' => $orders->where('status', 'pending')->count(),
+        'confirmed_order_count' => $orders->where('status', 'confirmed')->count(),
+        'shipped_order_count' => $orders->where('status', 'shipped')->count(),
+        'delivered_order_count' => $orders->where('status', 'delivered')->count(),
+        'user_count' => User::count(),
+        'message_count' => Contact::count(),
+    ];
+
+    return view('admin.dashboard.ajax_stats', ['data' => $data])->render();
 }
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+

@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="{{ asset('backend') }}/assets/css/color_skins.css">
     <style>
         .theme-orange .authentication .card .header {
-            background: #C0D997;
+            background: #f2ffde;
         }
     </style>
 </head>
@@ -37,9 +37,12 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="header slideDown">
-                            <div class="logo"><img src="{{ asset( $website_setting->website_favicon )}}" alt="GHC" width="50">
-                            </div>
-                            <h1>{{ $website_setting->website_title }}</h1>
+                            @if($website_setting->website_logo)
+                                <div class="logo"><img src="{{ asset( $website_setting->website_favicon )}}" alt="Marhaba" width="100">
+                                </div>
+                            @else
+                                <h1>{{ $website_setting->website_title }}</h1>
+                            @endif
 
                         </div>
                     </div>
@@ -97,9 +100,9 @@
 
                     </form>
                     <div class="col-lg-12 m-t-20">
-                        {{-- @if (Route::has('password.request'))
+                        @if (Route::has('password.request'))
                             <a class="" href="{{ route('password.request') }}">Forgot Password?</a>
-                        @endif --}}
+                        @endif
                     </div>
                 </div>
             </div>

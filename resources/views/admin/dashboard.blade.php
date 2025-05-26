@@ -1,25 +1,4 @@
-@php
-    use App\Models\WebsiteSetting;
-    use App\Models\Contact;
-    use App\Models\User;
-    use App\Models\Order;
-    $user_count = User::count();
-    $order_count = Order::count();
-    $total_order_amount = Order::sum('total_price');
-
-    $status_counts = Order::select('status', DB::raw('count(*) as count'))
-        ->whereIn('status', ['pending', 'confirmed', 'shipped', 'delivered'])
-        ->groupBy('status')
-        ->pluck('count', 'status');
-
-    $pending_order_count = $status_counts['pending'] ?? 0;
-    $confirmed_order_count = $status_counts['confirmed'] ?? 0;
-    $shipped_order_count = $status_counts['shipped'] ?? 0;
-    $delivered_order_count = $status_counts['delivered'] ?? 0;
-
-    $message_count = Contact::count();
-    $website_setting = WebsiteSetting::first();
-@endphp
+@extends('admin.layouts.app')
 
 <style>
     .dashboard-icons i {
@@ -36,9 +15,16 @@
         background: #f4f4f4;
         border-color: #f4f4f4;
     }
+
+    /* Active btn style */
+    .filter-btn.active {
+        background-color: #ffa500 !important; /* অরেঞ্জ কালার */
+        border-color: #ffa500 !important;
+        color: #fff !important;
+    }
+
 </style>
 
-@extends('admin.layouts.app')
 @section('admin_content')
     <div class="block-header">
         <div class="row">
@@ -48,135 +34,109 @@
                 </h2>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a class="btn btn-primary" href="{{ route('today') }}"> Today's Data </a></li>
-                    <li class="breadcrumb-item"><a class="btn btn-primary" href="{{ route('sevenday') }}"> 07 Day </a></li>
-
-                    <li class="breadcrumb-item"><a class="btn btn-primary" href="{{ route('fiftinday') }}"> 15 Day </a></li>
-
-                    <li class="breadcrumb-item"><a class="btn btn-primary" href="{{ route('thirtyday') }}"> 30 Day </a></li>
+                <ul class="breadcrumb" id="dashboard-tabs" style="gap: 10px;">
+                    <li><button class="btn btn-primary filter-btn active" data-days="1">1 Day</button></li>
+                    <li><button class="btn btn-primary filter-btn" data-days="7">7 Days</button></li>
+                    <li><button class="btn btn-primary filter-btn" data-days="15">15 Days</button></li>
+                    <li><button class="btn btn-primary filter-btn" data-days="{{ now()->daysInMonth }}">30/31 Days</button></li>
                 </ul>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <ul class="breadcrumb float-md-right">
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}" target="_blank"><i class="zmdi zmdi-home"></i>
-                            {{ $website_setting->website_title }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}" target="_blank">
+                        <i class="zmdi zmdi-home"></i> {{ $website_setting->website_title }}</a></li>
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="container-fluid">
-        <div class="row clearfix">
-
-            <div class="col-lg-3 col-md-6 col-sm-12 text-center">
-                <div class="card tasks_report">
-                    <div class="body">
-                        <span class="dashboard-icons"><i class="zmdi zmdi-money-box"></i> </span>
-                        <h2 class="mt-3">{{ $total_order_amount }}</h2>
-                        <p>Total Sale</p>
-                        <div class="sparkline m-t-30" data-type="bar" data-width="97%" data-height="30px"
-                            data-bar-Width="2" data-bar-Spacing="5" data-bar-Color="#ffa07a">9,5,1,5,4,8,7,6,3,4</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-sm-12 text-center">
-                <div class="card tasks_report">
-                    <div class="body">
-                        <span class="dashboard-icons"><i class="zmdi zmdi-shopping-cart"></i> </span>
-                        <h2 class="mt-3">{{ $order_count }}</h2>
-                        <p>Total Orders</p>
-                        <div class="sparkline m-t-30" data-type="bar" data-width="97%" data-height="30px" data-bar-Width="2"
-                            data-bar-Spacing="5" data-bar-Color="#ffa07a">9,5,1,5,4,8,7,6,3,4</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-sm-12 text-center">
-                <div class="card tasks_report">
-                    <div class="body">
-                        <span class="dashboard-icons"><i class="zmdi zmdi-shopping-cart"></i> </span>
-                        <h2 class="mt-3">{{ $pending_order_count }}</h2>
-                        <p>Pending Orders</p>
-                        <div class="sparkline m-t-30" data-type="bar" data-width="97%" data-height="30px" data-bar-Width="2"
-                            data-bar-Spacing="5" data-bar-Color="#ffa07a">9,5,1,5,4,8,7,6,3,4</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-sm-12 text-center">
-                <div class="card tasks_report">
-                    <div class="body">
-                        <span class="dashboard-icons"><i class="zmdi zmdi-confirmation-number"></i></span>
-                        <h2 class="mt-3">{{ $confirmed_order_count }}</h2>
-                        <p>Confirmed Order</p>
-                        <div class="sparkline m-t-30" data-type="bar" data-width="97%" data-height="30px" data-bar-Width="2"
-                            data-bar-Spacing="5" data-bar-Color="#ffa07a">9,5,1,5,4,8,7,6,3,4</div>
-                    </div>
-                </div>
-            </div>
-
-
-
-        </div>
-    </div>
 
     <div class="container-fluid">
-        <div class="row clearfix">
+        <div class="row clearfix" id="dashboard-stats">
+            @php
+                $cards = [
+                    ['icon' => 'zmdi-money-box', 'value' => $total_order_amount, 'label' => 'Total Sale'],
+                    ['icon' => 'zmdi-shopping-cart', 'value' => $order_count, 'label' => 'Total Orders'],
+                    ['icon' => 'zmdi-shopping-cart', 'value' => $pending_order_count, 'label' => 'Pending Orders'],
+                    ['icon' => 'zmdi-confirmation-number', 'value' => $confirmed_order_count, 'label' => 'Confirmed Order'],
+                    ['icon' => 'zmdi-shopping-cart', 'value' => $shipped_order_count, 'label' => 'Shipped Order'],
+                    ['icon' => 'zmdi-check-all', 'value' => $delivered_order_count, 'label' => 'Delivered Orders'],
+                    ['icon' => 'zmdi-accounts', 'value' => $user_count, 'label' => 'Users'],
+                    ['icon' => 'zmdi-email', 'value' => $message_count, 'label' => 'Inbox'],
+                ];
+            @endphp
 
-            <div class="col-lg-3 col-md-6 col-sm-12 text-center">
-                <div class="card tasks_report">
-                    <div class="body">
-                        <span class="dashboard-icons"><i class="zmdi zmdi-shopping-car"></i> </span>
-                        <h2 class="mt-3">{{ $shipped_order_count }}</h2>
-                        <p>Shipped Order</p>
-                        <div class="sparkline m-t-30" data-type="bar" data-width="97%" data-height="30px" data-bar-Width="2"
-                            data-bar-Spacing="5" data-bar-Color="#ffa07a">9,5,1,5,4,8,7,6,3,4</div>
+            @foreach ($cards as $card)
+                <div class="col-lg-3 col-md-6 col-sm-12 text-center">
+                    <div class="card tasks_report">
+                        <div class="body">
+                            <span class="dashboard-icons"><i class="zmdi {{ $card['icon'] }}"></i></span>
+                            <h2 class="mt-3">{{ $card['value'] }}</h2>
+                            <p>{{ $card['label'] }}</p>
+
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-sm-12 text-center">
-                <div class="card tasks_report">
-                    <div class="body">
-                        <span class="dashboard-icons"><i class="zmdi zmdi-check-all"></i> </span>
-                        <h2 class="mt-3">{{ $delivered_order_count }}</h2>
-                        <p>Delivered Orders</p>
-                        <div class="sparkline m-t-30" data-type="bar" data-width="97%" data-height="30px" data-bar-Width="2"
-                            data-bar-Spacing="5" data-bar-Color="#ffa07a">9,5,1,5,4,8,7,6,3,4</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-sm-12 text-center">
-                <div class="card tasks_report">
-                    <div class="body">
-                        <span class="dashboard-icons"><i class="zmdi zmdi-accounts"></i></span>
-                        <h2 class="mt-3">{{ $user_count }}</h2>
-                        <p>Users</p>
-                        <div class="sparkline m-t-30" data-type="bar" data-width="97%" data-height="30px" data-bar-Width="2"
-                            data-bar-Spacing="5" data-bar-Color="#ffa07a">9,5,1,5,4,8,7,6,3,4</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-sm-12 text-center">
-                <div class="card tasks_report">
-                    <div class="body">
-                        <span class="dashboard-icons"><i class="zmdi zmdi-email"></i> </span>
-                        <h2 class="mt-3">{{ $message_count }}</h2>
-                        <p>Inbox</p>
-                        <div class="sparkline m-t-30" data-type="bar" data-width="97%" data-height="30px"
-                            data-bar-Width="2" data-bar-Spacing="5" data-bar-Color="#ffa07a">9,5,1,5,4,8,7,6,3,4</div>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-
+            @endforeach
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    function loadDashboardStats(days = 1) {
+        $.ajax({
+            url: "{{ route('admin.dashboard.filter') }}",
+            method: "GET",
+            data: { days: days },
+            success: function(response) {
+                let statsHtml = '';
+                const cards = [
+                    { icon: 'zmdi-money-box', value: response.total_order_amount, label: 'Total Sale' },
+                    { icon: 'zmdi-shopping-cart', value: response.order_count, label: 'Total Orders' },
+                    { icon: 'zmdi-shopping-cart', value: response.pending_order_count, label: 'Pending Orders' },
+                    { icon: 'zmdi-confirmation-number', value: response.confirmed_order_count, label: 'Confirmed Order' },
+                    { icon: 'zmdi-shopping-cart', value: response.shipped_order_count, label: 'Shipped Order' },
+                    { icon: 'zmdi-check-all', value: response.delivered_order_count, label: 'Delivered Orders' },
+                    { icon: 'zmdi-accounts', value: response.user_count, label: 'Users' },
+                    { icon: 'zmdi-email', value: response.message_count, label: 'Inbox' },
+                ];
+
+                cards.forEach(card => {
+                    statsHtml += `
+                        <div class="col-lg-3 col-md-6 col-sm-12 text-center">
+                            <div class="card tasks_report">
+                                <div class="body">
+                                    <span class="dashboard-icons"><i class="zmdi ${card.icon}"></i></span>
+                                    <h2 class="mt-3">${card.value}</h2>
+                                    <p>${card.label}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                $('#dashboard-stats').html(statsHtml);
+            },
+            error: function() {
+                alert("Something went wrong while fetching dashboard data.");
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        // প্রথমে ডিফল্ট ডাটা লোড করুন
+        loadDashboardStats(1);
+
+        // বাটনে ক্লিক ইভেন্ট হ্যান্ডল করুন
+        $('.filter-btn').on('click', function() {
+            // active ক্লাস পরিবর্তন
+            $('.filter-btn').removeClass('active');
+            $(this).addClass('active');
+
+            let days = $(this).data('days');
+            loadDashboardStats(days);
+        });
+    });
+</script>
+@endpush

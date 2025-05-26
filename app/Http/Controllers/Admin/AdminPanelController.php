@@ -17,7 +17,7 @@ class AdminPanelController extends Controller
 
     public function adminPanelSettingUpdate(Request $request){
         $request->validate([
-            'login_page_bg' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:150',
+            'login_page_bg' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:500',
         ]);
 
         $adminPanelSetting = WebsiteSetting::first();

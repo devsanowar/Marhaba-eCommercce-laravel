@@ -51,7 +51,7 @@
                                 <label for="content"><b>Contents</b></label>
                                 <div class="form-group">
                                     <div class="" style="border: 1px solid #ccc">
-                                        <textarea type="text" name="content" class="summernote">{!! $cta->content !!}</textarea>
+                                        <textarea type="text" name="content" rows="4" class="form-control">{!! $cta->content !!}</textarea>
                                     </div>
                                 </div>
                             </div>

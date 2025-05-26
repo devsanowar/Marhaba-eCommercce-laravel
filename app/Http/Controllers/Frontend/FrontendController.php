@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Cta;
 use App\Models\Faq;
 use App\Models\Post;
 use App\Models\About;
 use App\Models\Brand;
+use App\Models\Banner;
 use App\Models\Review;
 use App\Models\Slider;
 use App\Models\Product;
@@ -14,13 +16,12 @@ use App\Models\Service;
 use App\Models\Category;
 use App\Models\WhyChoseUs;
 use App\Models\Achievement;
+use App\Models\Promobanner;
 use App\Models\ProjectVideo;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Banner;
-use App\Models\Promobanner;
 use App\Models\WebsiteSetting;
 use App\Models\WebsiteSocialIcon;
+use App\Http\Controllers\Controller;
 
 class FrontendController extends Controller
 {
@@ -52,13 +53,14 @@ class FrontendController extends Controller
 
         $reviews = Review::latest()->get(['id', 'name', 'profession', 'review', 'image']);
 
-        // $brands = Brand::where('is_active', 1)->latest()->get(['id', 'image']);
+        $cta = Cta::where('is_active', 1)->first();
+
 
         // $faqs = Faq::latest()->get(['id', 'question', 'answer']);
 
         $blogs = Post::latest()->take(3)->get();
 
-        return view('website.home', compact(['banner', 'categories', 'achievements', 'reviews', 'about', 'featured_products', 'blogs', 'promobanners', 'social_icon', 'website_setting']));
+        return view('website.home', compact(['banner', 'categories', 'achievements', 'reviews', 'about', 'featured_products', 'blogs', 'promobanners', 'social_icon', 'website_setting', 'cta']));
     }
 
     public function shopPage(Request $request)

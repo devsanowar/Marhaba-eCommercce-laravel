@@ -113,7 +113,7 @@
 <!-- =======================why choose section start here =================-->
 <div class="why-choose pt-120">
     <div class="why-choose__bg">
-        <img src="{{ asset('frontend') }}/assets/images/thumbs/about/about04.png" alt="" />
+        <img src="{{ asset('frontend') }}/assets/images/home/bg-banner.jpg" alt="" />
     </div>
     <div class="container">
         <div class="row">
@@ -262,7 +262,7 @@
 <!--============================feature section start here =======================-->
 <div class="feature-section bg-img py-60"
     style="
-        background-image: url({{ asset('frontend') }}/assets/images/thumbs/feature/feature-img.png);
+        background-image: url({{ asset('frontend') }}/assets/images/home/bg-banner.jpg);
       ">
     <div class="container">
         <div class="row gy-4">

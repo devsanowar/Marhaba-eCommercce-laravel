@@ -62,7 +62,7 @@ Website Social Icon
                         @csrf
 
                         <div class="col-lg-12 col-md-12 col-sm-8 col-xs-7 mb-3">
-                            <label for="customFile"><b>Admin login Background Image (Size:1900 by 500 and Max:100kb)</b></label>
+                            <label for="customFile"><b>Admin login Background Image (Size:1900 by 500 and Max:500kb)</b></label>
                             <div class="form-group">
                                 <div class="mb-2" style="border: 1px solid #ccc">
                                     <input type="file" name="login_page_bg" class="form-control"
@@ -84,7 +84,7 @@ Website Social Icon
                             </div>
                         </div>
 
-                        
+
 
                         <div class="col-lg-12 col-md-12 col-sm-8 col-xs-7">
                             <button type="submit"

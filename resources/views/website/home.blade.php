@@ -90,7 +90,7 @@
         <div class="row">
             <div class="col-12 mb-4">
                 <div class="section-heading" data-aos="fade-up">
-                    <h4 class="section-heading__subtitle">Special products</h4>
+                    {{-- <h4 class="section-heading__subtitle">Special products</h4> --}}
                     <h3 class="section-heading__title style-two">
                         Featured Products<span class="section-heading__bars"></span>
                     </h3>
@@ -214,22 +214,20 @@
 
 <!-- Cta -->
 <div>
-    <div id="cta-section" class="bg-position" style="background-image: url('{{ asset('frontend') }}/assets/images/home/bg-cta.jpg')">
+    <div id="cta-section" class="bg-position" style="background-image: url('{{ asset($cta->image) }}')">
         <div class="container">
             <div class="row g-5">
                 <div class="col-md-7">
                     <div class="hurry" data-aos="fade-up">
-                        <h2 class="section-heading__title">Hurry up!</h2>
+                        <h2 class="section-heading__title">{{ $cta->title }}</h2>
                         <h4 class="heading-four">
-                            Save 50% on all items your first order
+                            {{ $cta->sub_title }}
                         </h4>
                         <p>
-                            Shop today to save big on your first order at Puffles Store
-                            and get everything that your dog needs to stay healthy and
-                            happy.
+                            {!! $cta->content !!}
                         </p>
                         <div class="banner-content__buttons">
-                            <a href="/shop.html" class="btn btn--base pill">SHOP NOW</a>
+                            <a href="{{ $cta->button_url }}" class="btn btn--base pill">{{ $cta->button_name }}</a>
                         </div>
                     </div>
                 </div>
@@ -398,7 +396,7 @@
 <!--============================feature section start here =======================-->
 <div class="feature-section bg-img py-60"
     style="
-        background-image: url({{ asset('frontend') }}/assets/images/thumbs/feature/feature-img.png);
+        background-image: url({{ asset('frontend') }}/assets/images/home/bg-banner.jpg);
       ">
     <div class="container">
         <div class="row gy-4">

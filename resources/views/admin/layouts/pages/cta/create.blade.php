@@ -51,7 +51,7 @@
                                 <label for="content"><b>Contents</b></label>
                                 <div class="form-group">
                                     <div class="" style="border: 1px solid #ccc">
-                                        <textarea type="text" name="content" class="summernote"></textarea>
+                                        <textarea type="text" name="content" rows="4" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -122,5 +122,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('backend') }}/assets/plugins/summernote/summernote.js"></script>
+
 @endpush
