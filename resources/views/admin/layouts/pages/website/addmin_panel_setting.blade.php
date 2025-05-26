@@ -55,7 +55,7 @@ Website Social Icon
         <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
             <div class="card">
                 <div class="card-header">
-                    <h4 class=""> Footer Settings</h4>
+                    <h4 class=""> Admin login page Settings</h4>
                 </div>
                 <div class="body">
                     <form class="form-horizontal" action="{{ route('admin_panel_setting.update') }}" method="POST" enctype="multipart/form-data">

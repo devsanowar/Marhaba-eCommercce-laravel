@@ -27,7 +27,6 @@ use App\Http\Controllers\Admin\WhyChoseUsController;
 use App\Http\Controllers\Admin\AchievementController;
 use App\Http\Controllers\Admin\BlocklistController;
 use App\Http\Controllers\Admin\CtaController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PromobannerController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\PostCategoryController;
@@ -74,13 +73,6 @@ Route::prefix('admin')
             Route::post('social-icon/update', [SocialIconController::class, 'socialIconUpdate'])->name('website_social_icon.update');
         });
 
-        // Dashboard Routes
-
-
-        Route::get('today-data', [DashboardController::class, 'todays'])->name('today');
-        Route::get('sevenday-data', [DashboardController::class, 'sevenday'])->name('sevenday');
-        Route::get('fiftinday-data', [DashboardController::class, 'fiftinday'])->name('fiftinday');
-        Route::get('thirty-data', [DashboardController::class, 'thirtyday'])->name('thirtyday');
 
         // Admin Panel Settings
         Route::prefix('admin-panel')->group(function () {

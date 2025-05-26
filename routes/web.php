@@ -67,6 +67,11 @@ Route::post('/subscribe-newsletter', [SubscriberController::class, 'subscribe'])
 Route::get('/faq', [FaqController::class, 'index'])->name('faq.page');
 
 
+Route::get('privacy/policy/page', [FrontendController::class, 'privacyPolicyPage'])->name('privacy_policy.page');
+Route::get('terms/and/condition', [FrontendController::class, 'termsAndCondtion'])->name('terms_and_condition.page');
+Route::get('return/refund', [FrontendController::class, 'returnRefund'])->name('return_refund.page');
+
+
 // Route::get('/project', [ProjectController::class, 'projectPage'])->name('project.page');
 // Route::get('/project/{project_slug}/', [ProjectController::class, 'projectSinglePage'])->name('projectSingle.page');
 

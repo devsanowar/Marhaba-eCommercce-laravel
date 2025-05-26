@@ -29,16 +29,17 @@
 
             <!-- Search bar -->
             <!-- Search bar -->
-<div class="col-md-6 d-none d-md-block">
-    <div class="search-container d-flex justify-content-end">
-        <input type="text" class="form-control search-input" id="searchInput" placeholder="" style="max-width: 450px;" />
-        <div class="search-box-result">
-            <ul>
-                <li class="search-box-list"></li>
-            </ul>
-        </div>
-    </div>
-</div>
+            <div class="col-md-6 d-none d-md-block">
+                <div class="search-container d-flex justify-content-end">
+                    <input type="text" class="form-control search-input" id="searchInput" placeholder=""
+                        style="max-width: 450px;" />
+                    <div class="search-box-result">
+                        <ul>
+                            <li class="search-box-list"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
 
             <!-- Location and Button -->

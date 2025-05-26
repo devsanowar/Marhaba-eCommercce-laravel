@@ -28,14 +28,11 @@
 
                 <div class="card">
 
-                    <div class="card-header">
-                        <h4>
-                            Block lists
-                            <span>
-                                <a href="{{ route('order.index') }}" class="btn btn-primary">Orders</a>
-                            </span>
-                        </h4>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Block lists</h4>
+                        <a href="{{ route('order.index') }}" class="btn btn-primary">Orders</a>
                     </div>
+
                     <div class="body">
                         <table id="blocklistDatatable"
                             class="table table-bordered table-striped table-hover dataTable js-exportable">

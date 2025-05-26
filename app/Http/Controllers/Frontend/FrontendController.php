@@ -22,6 +22,9 @@ use Illuminate\Http\Request;
 use App\Models\WebsiteSetting;
 use App\Models\WebsiteSocialIcon;
 use App\Http\Controllers\Controller;
+use App\Models\Privacypolicy;
+use App\Models\Returnrefund;
+use App\Models\Termscondition;
 
 class FrontendController extends Controller
 {
@@ -30,7 +33,9 @@ class FrontendController extends Controller
         $banner = Banner::select(['id', 'title', 'sub_title', 'description', 'button_name', 'button_url', 'image'])->first();
         $categories = Category::with('products')->where('category_slug', '!=', 'default')->select('id', 'category_name', 'image', 'category_slug')->get();
 
-        $promobanners = Promobanner::where('is_active', 1)->latest()->get(['id','image', 'url']);
+        $promobanners = Promobanner::where('is_active', 1)
+            ->latest()
+            ->get(['id', 'image', 'url']);
 
         $about = About::first();
         $social_icon = WebsiteSocialIcon::select(['id', 'messanger_url'])->first();
@@ -54,7 +59,6 @@ class FrontendController extends Controller
         $reviews = Review::latest()->get(['id', 'name', 'profession', 'review', 'image']);
 
         $cta = Cta::where('is_active', 1)->first();
-
 
         // $faqs = Faq::latest()->get(['id', 'question', 'answer']);
 
@@ -132,8 +136,6 @@ class FrontendController extends Controller
         return response()->json(['suggestions' => []]);
     }
 
-
-
     public function priceFilter(Request $request)
     {
         $min = (float) $request->min_price;
@@ -163,9 +165,6 @@ class FrontendController extends Controller
 
         return $html;
     }
-
-
-
 
     // Categorywise product filter
     public function multiCategoryFilter(Request $request)
@@ -200,9 +199,6 @@ class FrontendController extends Controller
 
         return response()->json(['html' => $html]);
     }
-
-
-
 
     // Product filter by brand
 
@@ -244,5 +240,27 @@ class FrontendController extends Controller
         $pageTitle = 'Product Page';
         $category = Category::with('products')->findOrFail($id);
         return view('website.layouts.partials.get_category_products', compact('category', 'pageTitle'));
+    }
+
+    public function termsAndCondtion()
+    {
+        $pageTitle = 'Term & Condition';
+        $termsAndCondition = Termscondition::first();
+        return view('website.layouts.terms_and_condition', compact('termsAndCondition', 'pageTitle'));
+    }
+
+    // Privacy policy page method
+    public function privacyPolicyPage()
+    {
+        $pageTitle = 'Privacy policy';
+        $privacyPolicy = Privacypolicy::first();
+        return view('website.layouts.privacy_policy', compact('privacyPolicy', 'pageTitle'));
+    }
+
+    public function returnRefund()
+    {
+        $pageTitle = 'Return & Refund';
+        $returnRefund = Returnrefund::first();
+        return view('website.layouts.return_refund', compact('returnRefund', 'pageTitle'));
     }
 }

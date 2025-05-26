@@ -328,6 +328,7 @@ class ProductController extends Controller
     }
 
 
+
     // Product thumbnail image
     private function productImage(Request $request)
     {

@@ -11,14 +11,17 @@
     <section id="mobile-sticky-bottom-menu">
         <ul class="mobile-bottom-ul">
             <li>
-                <a href="/index.html" class="active"><i class="fas fa-home"></i><span>Home</span></a>
+                <a href="{{ route('home') }}" class="active"><i class="fas fa-home"></i><span>Home</span></a>
             </li>
             <li>
                 <a href="#"><i class="fa-solid fa-table"></i><span>Categories</span></a>
             </li>
             <li>
-                <a href="#"><i class="fas fa-search"></i><span>Search</span></a>
-            </li>
+            <a href="javascript:void(0);" id="searchToggle">
+                <i class="fas fa-search"></i><span>Search</span>
+            </a>
+        </li>
+
             <li>
                 <a href="/cart.html"><i class="fas fa-shopping-cart"></i><span>Cart</span></a>
             </li>
@@ -98,27 +101,18 @@
                             <h5 class="footer-item__title">Useful link</h5>
                             <ul class="footer-menu">
                                 <li class="footer-menu__item">
-                                    <a href="/shop.html" class="footer-menu__link">
-                                        Product Category
+                                    <a href="{{route('privacy_policy.page')}}" class="footer-menu__link">
+                                        Privacy Policy
                                     </a>
                                 </li>
                                 <li class="footer-menu__item">
-                                    <a href="check-out.html" class="footer-menu__link">Checkout
+                                    <a href="{{route('terms_and_condition.page')}}" class="footer-menu__link">Terms & Condition
                                     </a>
                                 </li>
                                 <li class="footer-menu__item">
-                                    <a href="login.html" class="footer-menu__link">Login </a>
+                                    <a href="{{route('return_refund.page')}}" class="footer-menu__link">Return & Refund </a>
                                 </li>
-                                <li class="footer-menu__item">
-                                    <a href="registration.html" class="footer-menu__link">
-                                        Registration
-                                    </a>
-                                </li>
-                                <li class="footer-menu__item">
-                                    <a href="contact.html" class="footer-menu__link">
-                                        Contact Us
-                                    </a>
-                                </li>
+
                             </ul>
                         </div>
                     </div>

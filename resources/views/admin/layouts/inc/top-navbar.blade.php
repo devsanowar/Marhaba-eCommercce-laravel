@@ -27,6 +27,7 @@
                 </ul>
             </li>
             <li style="font-weight: 700"><a href="{{ route('home') }}" class="inbox-btn hidden-sm-down text-uppercase" data-close="true" target="_blank">Visit Website</a></li>
+            
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="zmdi zmdi-search"></i></a></li>

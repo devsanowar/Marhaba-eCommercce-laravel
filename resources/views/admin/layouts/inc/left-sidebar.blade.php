@@ -1,32 +1,6 @@
-@php
-    $homePageRoutes = ['banner.*', 'about.*', 'promobanner.*', 'why-choose-us.*', 'achievement.*', 'review.*', 'faq.*', 'cta.*'];
-    $isHomePageActive = false;
-    foreach ($homePageRoutes as $route) {
-        if (request()->routeIs($route)) {
-            $isHomePageActive = true;
-            break;
-        }
-    }
 
-    $isPostActive = request()->routeIs('post.*') || request()->routeIs('post_category.*');
-    $isProductActive =
-        request()->routeIs('product.*') ||
-        request()->routeIs('category.*') ||
-        request()->routeIs('brand.*') ||
-        request()->routeIs('subcategory.*');
-    $isSettingsActive = request()->routeIs('website_setting') || request()->routeIs('website_setting.update');
+@php include_once resource_path('views/admin/layouts/inc/active-variable.blade.php'); @endphp
 
-    $isAboutPageActive = request()->routeIs('about_page.*');
-    $isOrderPageActive = request()->routeIs('order.*');
-    $isDistrictPageActive = request()->routeIs('district.*');
-    $isUpazilaPageActive = request()->routeIs('upazila.*');
-    $isUserPageActive = request()->routeIs('user.*');
-    $isPaymentMethodPageActive = request()->routeIs('payment_method.*');
-    $isMessagePageActive = request()->routeIs('message.*') || request()->routeIs('inboxed_message');
-    $isShippingPageActive = request()->routeIs('shipping.*');
-    $pendingOrder = App\Models\Order::where('status', 'pending')->count();
-
-@endphp
 <aside id="leftsidebar" class="sidebar">
     <!-- User Info -->
     <div class="user-info">
@@ -118,8 +92,7 @@
 
 
             <li class="{{ $isShippingPageActive ? 'active' : '' }}">
-                <a href="{{ route('shipping.index') }}">
-                    <i class="zmdi zmdi-money-box"></i>
+                <a href="{{ route('shipping.index') }}"><i class="zmdi zmdi-money-box"></i>
                     <span>Shipping</span>
                 </a>
             </li>
@@ -180,44 +153,48 @@
             {{-- Shared: Inbox, Settings, Logout --}}
 
             <li class="{{ $isMessagePageActive ? 'active' : '' }}">
-                <a href="{{ route('inboxed_message') }}">
-                    <i class="zmdi zmdi-email"></i>
+                <a href="{{ route('inboxed_message') }}"><i class="zmdi zmdi-email"></i>
                     <span>Messages</span>
                 </a>
             </li>
 
             <li class="{{ request()->routeIs('newslatter') ? 'active' : '' }}">
-                <a href="{{ route('newslatter') }}">
-                    <i class="zmdi zmdi-accounts"></i>
+                <a href="{{ route('newslatter') }}"><i class="zmdi zmdi-accounts"></i>
                     <span>Subscriber</span>
                 </a>
             </li>
 
             <li class="{{ request()->routeIs('sms-settings.*') ? 'active' : '' }}">
-                <a href="{{ route('sms-settings.edit') }}">
-                    <i class="zmdi zmdi-settings"></i>
+                <a href="{{ route('sms-settings.edit') }}"><i class="zmdi zmdi-settings"></i>
                     <span>SMS Settings</span>
                 </a>
             </li>
 
+            <li class="{{ request()->routeIs('block-list.*') ? 'active' : '' }}">
+                <a href="{{ route('block.list') }}"><i class="zmdi zmdi-accounts"></i>
+                    <span>Account Block Lists</span>
+                </a>
+            </li>
 
-            <li class="">
+
+            <li class="{{ $isPagesMenuActive ? 'active open' : '' }}">
                 <a href="javascript:void(0);" class="menu-toggle">
                     <i class="zmdi zmdi-folder"></i>
                     <span>Pages</span>
                 </a>
                 <ul class="ml-menu">
-                    <li class="">
+                    <li class="{{ request()->routeIs('privacy_policy') ? 'active' : '' }}">
                         <a href="{{ route('privacy_policy') }}">Privacy Policy</a>
                     </li>
-                    <li class="">
+                    <li class="{{ request()->routeIs('terms_and_condtion') ? 'active' : '' }}">
                         <a href="{{ route('terms_and_condtion') }}">Terms And Condition</a>
                     </li>
-                    <li class="">
-                        <a href="{{ route('return_refund') }}">Return & Refund </a>
+                    <li class="{{ request()->routeIs('return_refund') ? 'active' : '' }}">
+                        <a href="{{ route('return_refund') }}">Return & Refund</a>
                     </li>
                 </ul>
             </li>
+
 
             <li class="{{ $isSettingsActive ? 'active open' : '' }}">
                 <a href="javascript:void(0);" class="menu-toggle">
