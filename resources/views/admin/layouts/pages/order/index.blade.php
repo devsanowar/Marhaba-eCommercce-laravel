@@ -110,6 +110,7 @@
                                     <select name="status" id="status" class="form-control show-tick" style="width: 40%">
                                         <option value="">All</option>
                                         <option value="pending">Pending</option>
+                                        <option value="cancelled">Cancelled</option>
                                         <option value="confirmed">Confirmed</option>
                                         <option value="shipped">Shipped</option>
                                         <option value="delivered">Delivered</option>
@@ -169,18 +170,11 @@
                                                         <div class="col-lg-8 col-md-8">
                                                             <select name="status"
                                                                 class="form-control status-select show-tick">
-                                                                <option value="pending"
-                                                                    {{ $item->status == 'pending' ? 'selected' : '' }}>
-                                                                    Pending</option>
-                                                                <option value="confirmed"
-                                                                    {{ $item->status == 'confirmed' ? 'selected' : '' }}>
-                                                                    Confirmed</option>
-                                                                <option value="shipped"
-                                                                    {{ $item->status == 'shipped' ? 'selected' : '' }}>
-                                                                    Shipped</option>
-                                                                <option value="delivered"
-                                                                    {{ $item->status == 'delivered' ? 'selected' : '' }}>
-                                                                    Delivered</option>
+                                                                <option value="pending" @selected($item->status == 'pending')> Pending </option>
+                                                                <option @selected($item->status == 'cancelled') value="cancelled">Cancelled</option>
+                                                                <option value="confirmed" @selected($item->status == 'confirmed')>Confirmed</option>
+                                                                <option value="shipped" @selected($item->status == 'shipped')>Shipped</option>
+                                                                <option value="delivered" @selected($item->status == 'delivered')>Delivered</option>
                                                             </select>
                                                         </div>
                                                         <div class="col-lg-4 col-md-4 status-update-button pl-0 mt-1">

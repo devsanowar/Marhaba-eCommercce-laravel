@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('title')
-Website Social Icon
+Website Color Settings
 @endsection
 
 @section('admin_content')
@@ -24,7 +24,7 @@ Website Social Icon
                             Social Icon
                         </a>
 
-                        <a href="#" class="btn btn-primary text-white text-uppercase font-weight-bold mx-2">
+                        <a href="{{ route('website_color.edit') }}" class="btn btn-primary text-white text-uppercase font-weight-bold mx-2">
                             Color Theme
                         </a>
                     </div>
@@ -36,7 +36,7 @@ Website Social Icon
         <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
             <div class="card">
                 <div class="card-header">
-                    <h4 class=""> Social Icon Settings</h4>
+                    <h4 class=""> Website Color Settings</h4>
                 </div>
                 <div class="body">
                     <form class="form-horizontal" action="{{ route('website_social_icon.update') }}" method="POST">

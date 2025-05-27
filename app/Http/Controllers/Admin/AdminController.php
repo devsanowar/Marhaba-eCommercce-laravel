@@ -22,11 +22,12 @@ class AdminController extends Controller
         $website_setting = WebsiteSetting::first();
 
         $status_counts = Order::select('status', DB::raw('count(*) as count'))
-            ->whereIn('status', ['pending', 'confirmed', 'shipped', 'delivered'])
+            ->whereIn('status', ['pending', 'cancelled', 'confirmed', 'shipped', 'delivered'])
             ->groupBy('status')
             ->pluck('count', 'status');
 
         $pending_order_count = $status_counts['pending'] ?? 0;
+        $cancelled_order_count = $status_counts['cancelled'] ?? 0;
         $confirmed_order_count = $status_counts['confirmed'] ?? 0;
         $shipped_order_count = $status_counts['shipped'] ?? 0;
         $delivered_order_count = $status_counts['delivered'] ?? 0;
@@ -38,6 +39,7 @@ class AdminController extends Controller
             'message_count',
             'website_setting',
             'pending_order_count',
+            'cancelled_order_count',
             'confirmed_order_count',
             'shipped_order_count',
             'delivered_order_count'
@@ -62,11 +64,18 @@ public function filterDashboardData(Request $request)
     $total_order_amount = Order::whereBetween('created_at', [$fromDate, $toDate])->sum('total_price');
     $message_count = Contact::whereBetween('created_at', [$fromDate, $toDate])->count();
 
+    // $status_counts = Order::select('status', DB::raw('count(*) as count'))
+    //     ->whereBetween('created_at', [$fromDate, $toDate])
+    //     ->whereIn('status', ['pending', 'cancelled', 'confirmed', 'shipped', 'delivered'])
+    //     ->groupBy('status')
+    //     ->pluck('count', 'status');
+
     $status_counts = Order::select('status', DB::raw('count(*) as count'))
-        ->whereBetween('created_at', [$fromDate, $toDate])
-        ->whereIn('status', ['pending', 'confirmed', 'shipped', 'delivered'])
-        ->groupBy('status')
-        ->pluck('count', 'status');
+                ->whereBetween(DB::raw('COALESCE(status_updated_at, updated_at)'), [$fromDate, $toDate])
+                ->whereIn('status', ['pending', 'cancelled', 'confirmed', 'shipped', 'delivered'])
+                ->groupBy('status')
+                ->pluck('count', 'status');
+
 
     return response()->json([
         'user_count' => $user_count,
@@ -74,6 +83,7 @@ public function filterDashboardData(Request $request)
         'total_order_amount' => $total_order_amount,
         'message_count' => $message_count,
         'pending_order_count' => $status_counts['pending'] ?? 0,
+        'cancelled_order_count' => $status_counts['cancelled'] ?? 0,
         'confirmed_order_count' => $status_counts['confirmed'] ?? 0,
         'shipped_order_count' => $status_counts['shipped'] ?? 0,
         'delivered_order_count' => $status_counts['delivered'] ?? 0,

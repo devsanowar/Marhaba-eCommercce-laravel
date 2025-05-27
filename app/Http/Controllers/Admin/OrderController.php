@@ -18,11 +18,12 @@ class OrderController extends Controller
     public function orderChangeStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => ['required', Rule::in(['pending', 'confirmed', 'shipped', 'delivered'])],
+            'status' => ['required', Rule::in(['pending', 'cancelled', 'confirmed', 'shipped', 'delivered'])],
         ]);
 
         $order = Order::findOrFail($id);
         $order->status = $request->status ?? 'pending';
+        $order->status_updated_at = now();
         $order->save();
 
         return response()->json(['message' => 'Order status updated successfully.']);

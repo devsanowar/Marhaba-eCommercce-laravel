@@ -43,7 +43,7 @@ Website Social Icon
                             Social Icon
                         </a>
 
-                        <a href="#" class="btn btn-primary text-white text-uppercase font-weight-bold mx-2">
+                        <a href="{{ route('website_color.edit') }}" class="btn btn-primary text-white text-uppercase font-weight-bold mx-2">
                             Color Theme
                         </a>
                     </div>

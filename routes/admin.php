@@ -2,6 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CtaController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
@@ -19,22 +20,22 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DistrictController;
 use App\Http\Controllers\Admin\ShippingController;
 use App\Http\Controllers\Admin\AboutPageController;
+use App\Http\Controllers\Admin\BlocklistController;
 use App\Http\Controllers\Admin\AdminPanelController;
 use App\Http\Controllers\Admin\NewslatterController;
 use App\Http\Controllers\Admin\SmsSettingController;
 use App\Http\Controllers\Admin\SocialIconController;
 use App\Http\Controllers\Admin\WhyChoseUsController;
 use App\Http\Controllers\Admin\AchievementController;
-use App\Http\Controllers\Admin\BlocklistController;
-use App\Http\Controllers\Admin\CtaController;
 use App\Http\Controllers\Admin\PromobannerController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\PostCategoryController;
+use App\Http\Controllers\Admin\ReturnrefundController;
+use App\Http\Controllers\Admin\WebsiteColorController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\PrivacypolicyController;
-use App\Http\Controllers\Admin\ReturnrefundController;
-use App\Http\Controllers\Admin\TermsAdnCondiotnController;
 use App\Http\Controllers\Admin\WebsiteSettingController;
+use App\Http\Controllers\Admin\TermsAdnCondiotnController;
 
 Route::prefix('admin')
     ->middleware(['auth', 'admin'])
@@ -242,6 +243,10 @@ Route::prefix('admin')
         // Terms And Condition
         Route::get('/terms-and-condition', [TermsAdnCondiotnController::class, 'termsAndCondition'])->name('terms_and_condtion');
         Route::put('/terms-and-condition/update/{id}', [TermsAdnCondiotnController::class, 'update'])->name('terms_and_conditon.update');
+
+        // Website Color routes
+        Route::get('website-color', [WebsiteColorController::class, 'edit'])->name('website_color.edit');
+        Route::put('/website-color/update/{id}', [WebsiteColorController::class, 'update'])->name('website_color.update');
 
 
     });

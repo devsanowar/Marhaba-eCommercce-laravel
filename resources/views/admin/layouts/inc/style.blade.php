@@ -8,5 +8,18 @@
 <link rel="stylesheet" href="{{ asset('backend') }}/assets/css/custom.css">
 <link rel="stylesheet" href="{{ asset('backend') }}/assets/css/color_skins.css">
 <link rel="stylesheet" href="{{ asset('backend') }}/assets/css/toastr.css">
-
+@php
+    use App\Models\WebsiteColor;
+    $websiteColor = WebsiteColor::first();
+@endphp
+<style>
+    :root {
+  --priamary: {{ $websiteColor->primary_color }};
+  --secondary: {{ $websiteColor->secondary_color }};
+  --base: {{ $websiteColor->base_color }};
+  --black: rgb(51, 51, 51);
+  --white: rgb(255, 255, 255);
+  --basebg: {{ $websiteColor->base_bg_color }};
+}
+</style>
 @stack('styles')

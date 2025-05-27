@@ -20,5 +20,25 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
 
+@php
+    use App\Models\WebsiteColor;
+    $websiteColor = WebsiteColor::first();
+@endphp
+
+<style>
+    :root {
+  --priamary: {{ $websiteColor->primary_color }};
+  --secondary: {{ $websiteColor->secondary_color }};
+  --base: {{ $websiteColor->base_color }};
+  --black: rgb(51, 51, 51);
+  --white: rgb(255, 255, 255);
+  --basebg: {{ $websiteColor->base_bg_color }};
+  --heading-font: "Nunito", sans-serif;
+  --title-font: "Pacifico", cursive;
+  --body-font: "Roboto", sans-serif;
+  --heading-three: 27px;
+}
+</style>
+
 
 @stack('styles')
