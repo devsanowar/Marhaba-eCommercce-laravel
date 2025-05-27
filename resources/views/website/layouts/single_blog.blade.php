@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Title -->
-<title>{{ $website_setting->website_title }} | Blog Page</title>
+<title>{{ $website_setting->website_title }} | Blog Single Page</title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset($website_setting->website_favicon)}}" />
     @include('website.layouts.inc.style')
@@ -45,7 +45,7 @@
    @include('website.layouts.inc.search-modal')
     <!--========================== Search Modal End ==========================-->
 
-@include('website.layouts.pages.blog.blog')
+@include('website.layouts.pages.blog.blog_single_page')
 
     <!-- ==========================feature setion end here ============================-->
 
