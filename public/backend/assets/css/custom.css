@@ -203,3 +203,20 @@ font-size: 16px;
 	padding-left: 10px !important;
 	right: 5px !important;
 }
+
+
+blockquote {
+	border-left: 5px solid var(--priamary) !important;
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+}
+
+p span .sms {
+	border: 1px solid transparent;
+	width: 40px;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show > .btn-primary.dropdown-toggle:focus {
+	box-shadow: 0 0 0 .2rem var(--secondary);
+}

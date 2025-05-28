@@ -31,7 +31,15 @@
 
 
 <body class="theme-orange">
+@if ($website_setting->login_page_bg)
     <div class="authentication" style="background-image: url('{{ asset($website_setting->login_page_bg) }}');">
+@elseif ($website_setting->login_page_bg_color)
+    <div class="authentication" style="background: {{ $website_setting->login_page_bg_color }};">
+@else
+    <div class="authentication">
+@endif
+
+
         <div class="card">
             <div class="body">
                 <div class="row">

@@ -35,7 +35,7 @@
 
     <!-- ==================== Footer Start Here ==================== -->
     <footer class="footer-area section-bg-light bg-img">
-        <div class="pb-60 pt-120">
+        <div class="pb-60" style="padding-top:70px">
             <div class="container">
                 <div class="row justify-content-center gy-5">
                     <div class="col-xl-3 col-sm-6">

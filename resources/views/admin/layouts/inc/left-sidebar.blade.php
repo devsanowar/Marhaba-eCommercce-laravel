@@ -1,4 +1,3 @@
-
 @php include_once resource_path('views/admin/layouts/inc/active-variable.blade.php'); @endphp
 
 <aside id="leftsidebar" class="sidebar">
@@ -150,13 +149,17 @@
                 </li>
             @endif
 
+            <li class="{{ Request::is('moblieSMS*') ? 'active' : '' }}"><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-email"></i><span>SMS</span> </a>
+                <ul class="ml-menu">
+                    <li class="{{ Request::is('moblieSMS/sms') ? 'active' : '' }}"><a href="{{ route('mobile.sms') }}">Send SMS</a></li>
+                    <li class="{{ Request::is('moblieSMS/custom-sms') ? 'active' : '' }}"><a href="{{ route('custom.sms') }}">Custome SMS</a></li>
+                    <li class="{{ Request::is('moblieSMS/sms-report') ? 'active' : '' }}"><a href="{{ route('sms_report.sms') }}">SMS Report</a></li>
+                </ul>
+            </li>
+
             {{-- Shared: Inbox, Settings, Logout --}}
 
-            <li class="{{ $isMessagePageActive ? 'active' : '' }}">
-                <a href="{{ route('inboxed_message') }}"><i class="zmdi zmdi-email"></i>
-                    <span>Messages</span>
-                </a>
-            </li>
+
 
             <li class="{{ request()->routeIs('newslatter') ? 'active' : '' }}">
                 <a href="{{ route('newslatter') }}"><i class="zmdi zmdi-accounts"></i>
@@ -164,11 +167,13 @@
                 </a>
             </li>
 
-            <li class="{{ request()->routeIs('sms-settings.*') ? 'active' : '' }}">
-                <a href="{{ route('sms-settings.edit') }}"><i class="zmdi zmdi-settings"></i>
-                    <span>SMS Settings</span>
+            <li class="{{ $isMessagePageActive ? 'active' : '' }}">
+                <a href="{{ route('inboxed_message') }}"><i class="zmdi zmdi-email-open"></i>
+                    <span>Messages</span>
                 </a>
             </li>
+
+
 
             <li class="{{ request()->routeIs('block-list.*') ? 'active' : '' }}">
                 <a href="{{ route('block.list') }}"><i class="zmdi zmdi-accounts"></i>
@@ -196,16 +201,21 @@
             </li>
 
 
-            <li class="{{ $isSettingsActive ? 'active open' : '' }}">
+            <li
+                class="{{ request()->routeIs('sms-settings.*') || request()->routeIs('website_setting') ? 'active open' : '' }}">
                 <a href="javascript:void(0);" class="menu-toggle">
                     <i class="zmdi zmdi-settings"></i>
                     <span>Settings</span>
                 </a>
                 <ul class="ml-menu">
+                    <li class="{{ request()->routeIs('sms-settings.*') ? 'active' : '' }}">
+                        <a href="{{ route('sms-settings.edit') }}">
+                            <span>SMS API Settings</span>
+                        </a>
+                    </li>
                     <li class="{{ request()->routeIs('website_setting') ? 'active' : '' }}">
                         <a href="{{ route('website_setting') }}">Website Setting</a>
                     </li>
-
                 </ul>
             </li>
 

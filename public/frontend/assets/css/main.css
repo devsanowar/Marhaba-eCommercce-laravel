@@ -9158,3 +9158,17 @@ Css For search result
   margin-bottom: 20px;
   padding: 20px;
 }
+
+
+.continue-shoping{
+    background-color: var(--priamary);
+}
+
+.confirm-icon{
+    color: var(--priamary) !important;
+}
+
+.btn.btn-lg.px-4.continue-shoping:hover {
+	border-color: var(--priamary) !important;
+	color: var(--priamary) !important;
+}

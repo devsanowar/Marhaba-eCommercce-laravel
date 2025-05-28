@@ -62,7 +62,7 @@ class CheckoutpageController extends Controller
 
         $blockNumber = Blocklist::pluck('number')->toArray();
 
-        if(in_array($request->phone, $blockNumber)){
+        if (in_array($request->phone, $blockNumber)) {
             return back()->with('error', 'দুঃখিত, মোবাইল নম্বরটি ব্লক করা হয়েছে। অনুগ্রহ করে একটি বৈধ নম্বর প্রদান করুন।');
         }
 
@@ -106,11 +106,12 @@ class CheckoutpageController extends Controller
 
         session()->forget('cart');
 
+        // $this->sendOrderConfirmationSMS($request->phone, $order);
+
         $smsService->sendOrderConfirmationSMS($request->phone, $order);
 
         return redirect()->route('order.confirmation', $order->id)->with('success', 'অর্ডার সফল হয়েছে!');
     }
-
 
     public function showOrderConfirmation($id)
     {
@@ -118,47 +119,40 @@ class CheckoutpageController extends Controller
         return view('website.layouts.pages.order.confirmation', compact('order'));
     }
 
+    // private function sendOrderConfirmationSMS($mobile, $order)
+    // {
+    //     $apiUrl = 'https://portal.adnsms.com/api/v1/secure/send-sms';
 
+    //     $message = "সম্মানিত গ্রাহক,\n" . 'আপনার অর্ডারটি সফলভাবে গ্রহন করা হয়েছে।' . "আপনার অর্ডার নং: #$order->order_id\n\n" . 'বিল এমাউন্ট: ' . "$order->total_price" . " টাকা\n\n" . "\n Mymensingh Pet Shop \n" . '01610608606';
 
-// private function sendOrderConfirmationSMS($mobile, $order){
-//         $apiUrl = 'https://portal.adnsms.com/api/v1/secure/send-sms';
+    //     $data = [
+    //         'api_key' => 'KEY-gtdu11carybws8n5hm31h8z3qpn51x0e',
+    //         'api_secret' => 'eGLXoyke0eRzYZI5',
+    //         'request_type' => 'single_sms',
+    //         'message_type' => 'UNICODE',
+    //         'mobile' => $mobile,
+    //         'message_body' => $message,
+    //     ];
 
-//         $message = "সম্মানিত গ্রাহক,\n" .
-//                    "আপনার অর্ডারটি সফলভাবে গ্রহন করা হয়েছে।" .
-//                    "আপনার অর্ডার নং: #$order->order_id\n\n" .
-//                    "বিল এমাউন্ট: " . "$order->total_price" . " টাকা\n\n" .
-//                    "\n Mymensingh Pet Shop \n" .
-//                    "01610608606";
+    //     $curl = curl_init();
 
-//         $data = [
-//             'api_key'      => 'KEY-gtdu11carybws8n5hm31h8z3qpn51x0e',
-//             'api_secret'   => 'eGLXoyke0eRzYZI5',
-//             'request_type' => 'single_sms',
-//             'message_type' => 'UNICODE',
-//             'mobile'       => $mobile,
-//             'message_body' => $message
-//         ];
+    //     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    //     curl_setopt($curl, CURLOPT_URL, $apiUrl);
+    //     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    //     curl_setopt($curl, CURLOPT_POST, 1);
+    //     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 
-//         $curl = curl_init();
+    //     $response = json_decode(curl_exec($curl), true); // Decode response to array
 
-//         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-//         curl_setopt($curl, CURLOPT_URL, $apiUrl);
-//         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-//         curl_setopt($curl, CURLOPT_POST, 1);
-//         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    //     $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    //     curl_close($curl);
 
-//         $response = json_decode(curl_exec($curl), true); // Decode response to array
-//         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-//         curl_close($curl);
-
-//         if ($httpCode == 200 && isset($response['api_response_code']) && $response['api_response_code'] == 200) {
-//             Log::info("SMS sent successfully: " . json_encode($response));
-//         } else {
-//             Log::error("SMS sending failed: " . json_encode($response));
-//         }
-//     }
-
-
+    //     if ($httpCode == 200 && isset($response['api_response_code']) && $response['api_response_code'] == 200) {
+    //         Log::info('SMS sent successfully: ' . json_encode($response));
+    //     } else {
+    //         Log::error('SMS sending failed: ' . json_encode($response));
+    //     }
+    // }
 
 
 }

@@ -27,8 +27,8 @@
     <div class="container">
         <div class="card shadow-lg border-0 rounded-4 p-5 text-center bg-light">
             <div class="mb-4">
-                <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
-                <h2 class="mt-3 text-success">Order Placed Successfully!</h2>
+                <i class="fas fa-check-circle text-success confirm-icon" style="font-size: 4rem;"></i>
+                <h2 class="mt-3 text-success confirm-icon">Order Placed Successfully!</h2>
             </div>
 
             @if (isset($order))
@@ -63,7 +63,7 @@
                                 </tr>
                                 <tr>
                                     <th colspan="3" class="text-end">Grand Total:</th>
-                                    <th class="text-success">{{ number_format($order->total_price, 2) }} TK</th>
+                                    <th class="text-success confirm-icon">{{ number_format($order->total_price, 2) }} TK</th>
                                 </tr>
                             </tbody>
                         </table>
@@ -76,7 +76,7 @@
             @endif
 
             <div class="mt-4">
-                <a href="{{ route('shop_page') }}" class="btn btn-success btn-lg px-4">
+                <a href="{{ route('shop_page') }}" class="btn btn-lg px-4 continue-shoping">
                     <i class="fas fa-shopping-cart me-2"></i>Continue Shopping
                 </a>
             </div>

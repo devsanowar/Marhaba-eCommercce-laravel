@@ -227,6 +227,16 @@ Route::prefix('admin')
         Route::get('sms-settings', [SmsSettingController::class, 'edit'])->name('sms-settings.edit');
         Route::put('sms-settings', [SmsSettingController::class, 'update'])->name('sms-settings.update');
 
+
+        // SMS routes here
+        Route::group(['prefix' => 'moblieSMS'], function(){
+            Route::get('sms', [SmsSettingController::class, 'moblie_sms'])->name('mobile.sms');
+            Route::get('custom-sms', [SmsSettingController::class, 'custom_sms'])->name('custom.sms');
+            Route::get('sms-report', [SmsSettingController::class, 'sms_report'])->name('sms_report.sms');
+            Route::post('/send/custom/message', [SmsSettingController::class, 'sendCustomSms'])->name('send.custom_sms');
+        });
+
+
         // block list routes
         Route::get('block-list', [BlocklistController::class, 'index'])->name('block.list');
         Route::post('store-blocklist', [BlocklistController::class, 'store'])->name('block.number');
