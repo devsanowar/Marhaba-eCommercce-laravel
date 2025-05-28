@@ -91,7 +91,10 @@
                                                         <div class="form-group">
                                                             <label for="name" class="mb-2">Your Name<span
                                                                     class="required">*</span></label>
-                                                            <input type="text" name="name" class="form--control" id="name" />
+                                                            <input type="text" name="name" class="form--control" id="name" value="{{ old('name') }}" />
+                                                            @error('name')
+                                                                <p class="text-danger">{{ $message }}</p>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
@@ -99,14 +102,21 @@
                                                             <label for="emailaddress" class="mb-2">Email Address<span
                                                                     class="required">*</span></label>
                                                             <input type="email" name="email" class="form--control"
-                                                                id="emailaddress" />
+                                                                id="emailaddress" value="{{ old('email') }}" />
                                                         </div>
+                                                        @error('email')
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
                                                     </div>
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <label for="message" class="mb-2">Your Message
                                                             </label>
-                                                            <textarea class="form--control" id="message" name="message"></textarea>
+                                                            <textarea class="form--control" id="message" name="message">{!! old('message') !!}</textarea>
+                                                            @error('message')
+                                                                <p class="text-danger">{{ $message }}
+                                                                </p>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-12 text-center">

@@ -46,8 +46,8 @@ class CheckoutpageController extends Controller
     public function placeOrder(Request $request, SmsService $smsService)
     {
         $request->validate([
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
+            'first_name' => 'required|string|max:50',
+            'last_name' => 'required|string|max:50',
             'phone' => ['required', 'regex:/^(01[3-9][0-9]{8}|\+8801[3-9][0-9]{8})$/'],
             'district_id' => 'required|exists:districts,id',
             'upazila_id' => 'required|exists:upazilas,id',

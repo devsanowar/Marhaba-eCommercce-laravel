@@ -52,14 +52,20 @@
                                 <div class="form-group">
                                     <label for="first-name" class="form--label">First Name<span
                                             class="required">*</span></label>
-                                    <input type="text" name="first_name" class="form--control" id="first-name" />
+                                    <input type="text" name="first_name" class="form--control" id="first-name" value="{{ old('first_name') }}" />
+                                    @error('first_name')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="last-name" class="form--label">Last Name<span
                                             class="required">*</span></label>
-                                    <input type="text" class="form--control" name="last_name" id="last-name" />
+                                    <input type="text" class="form--control" name="last_name" id="last-name" value="{{ old('last_name') }}" />
+                                    @error('last_name')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -68,8 +74,12 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="tel" class="form--label"> Phone Number </label>
-                                    <input type="text" class="form--control" name="phone" id="tel" />
+                                    <input type="text" class="form--control" name="phone" id="tel" value="{{ old('phone') }}"/>
+                                    @error('phone')
+                                    <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
+
                             </div>
 
 
@@ -85,6 +95,9 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                @error('district_id')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div class="col-lg-6">
@@ -95,6 +108,9 @@
                                         <option value="">Select Upazila</option>
                                     </select>
                                 </div>
+                                @error('upazila_id')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
 
 
@@ -102,9 +118,13 @@
                                 <div class="form-group">
                                     <label for="address" class="form--label">
                                         Address<span class="required">*</span></label>
-                                    <textarea type="text" name="address" id="address" rows="4" class="form--control"
-                                        placeholder="House number and street name" id="address"> </textarea>
+                                    <textarea type="text" name="address" id="address" rows="4" class="form--control" id="address">{{ old('address') }}</textarea>
+
                                 </div>
+                                 @error('address')
+                                    <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+
                             </div>
 
                             <div class="col-xl-6">
