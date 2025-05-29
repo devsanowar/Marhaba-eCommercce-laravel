@@ -28,7 +28,7 @@
 </head>
 <body class="theme-orange">
     @if ($website_setting->login_page_bg)
-        <div class="authentication" style="background-image: url('{{ asset($website_setting->login_page_bg) }}');">
+        <div class="authentication" style="background-image: url('{{ asset($website_setting->login_page_bg) }}'); background-size: cover;">
         @elseif ($website_setting->login_page_bg_color)
             <div class="authentication" style="background: {{ $website_setting->login_page_bg_color }};">
             @else

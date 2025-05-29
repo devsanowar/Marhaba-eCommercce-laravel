@@ -28,8 +28,9 @@
                                 <th>Image</th>
                                 <th>Method Name</th>
                                 <th>Number</th>
-                                <th style="width: 200px">Method Type</th>
-                                <th style="width: 160px">Action</th>
+                                <th>Method Type</th>
+                                <th>Status</th>
+                                <th style="width: 100px">Action</th>
                             </tr>
                         </thead>
 
@@ -42,6 +43,11 @@
                                 <td>{{ $paymentMethod->name }}</td>
                                 <td>{{ $paymentMethod->payment_number }}</td>
                                 <td>{{ $paymentMethod->method_type }}</td>
+                                <td>
+                                    <button data-id="{{ $paymentMethod->id }}" class="btn btn-sm status-toggle-btn {{ $paymentMethod->is_active ? 'btn-success' : 'btn-danger' }}">
+                                        {{ $paymentMethod->is_active ? 'Active' : 'DeActive' }}
+                                    </button>
+                                </td>
                                 <td>
                                     <a href="{{ route('payment_method.edit', $paymentMethod->id) }}" class="btn btn-warning btn-sm">
                                         <i class="material-icons text-white">edit</i>
@@ -67,34 +73,18 @@
     </div>
 </div>
 @endsection
-<script src="{{ asset('backend') }}/assets/js/sweetalert2.all.min.js"></script>
+
 
 @push('scripts')
+
+
+<!-- Script For status change -->
 <script>
-    $('.show_confirm').click(function(event){
-        let form = $(this).closest('form');
-        event.preventDefault();
-
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-            }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
-                Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success"
-                });
-            }
-            });
-
-    });
-
+    const paymentMethodStatusRoute = "{{ route('payment_method.status') }}";
+    const csrfToken = "{{ csrf_token() }}";
 </script>
+
+<script src="{{ asset('backend') }}/assets/js/sweetalert2.all.min.js"></script>
+<script src="{{ asset('backend') }}/assets/js/payment_method.js"></script>
+
 @endpush

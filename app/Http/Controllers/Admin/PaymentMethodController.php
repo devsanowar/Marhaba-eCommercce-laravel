@@ -87,6 +87,26 @@ class PaymentMethodController extends Controller
 
     }
 
+
+        public function paymentMethodChangeStatus(Request $request)
+        {
+            $payment_method = Paymentmethod::find($request->id);
+
+            if (!$payment_method) {
+                return response()->json(['status' => false, 'message' => 'Payment method not found.']);
+            }
+
+            $payment_method->is_active = !$payment_method->is_active;
+            $payment_method->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Status changed successfully.',
+                'new_status' => $payment_method->is_active ? 'Active' : 'DeActive',
+                'class' => $payment_method->is_active ? 'btn-success' : 'btn-danger',
+            ]);
+        }
+
     // Image edit and update code here
     private function paymentMethodImage(Request $request)
     {

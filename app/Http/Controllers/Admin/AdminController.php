@@ -32,6 +32,7 @@ class AdminController extends Controller
         $shipped_order_count = $status_counts['shipped'] ?? 0;
         $delivered_order_count = $status_counts['delivered'] ?? 0;
 
+
         return view('admin.dashboard', compact(
             'user_count',
             'order_count',
@@ -42,53 +43,67 @@ class AdminController extends Controller
             'cancelled_order_count',
             'confirmed_order_count',
             'shipped_order_count',
-            'delivered_order_count'
+            'delivered_order_count',
         ));
     }
 
 
 public function filterDashboardData(Request $request)
 {
-    $days = (int) $request->input('days', 1);
+    $daysInput = $request->input('days', 1);
 
-    if ($days === 1) {
-        $fromDate = Carbon::today(); // আজকের শুরু
-        $toDate = Carbon::now();     // এখন পর্যন্ত
-    } else {
-        $fromDate = Carbon::now()->subDays($days);
+    // তারিখ সেটআপ
+    $fromDate = null;
+    $toDate = null;
+
+    if ($daysInput !== 'all') {
+        $days = (int) $daysInput;
+        $fromDate = $days === 1 ? Carbon::today() : Carbon::now()->subDays($days);
         $toDate = Carbon::now();
     }
 
-    $user_count = User::whereBetween('created_at', [$fromDate, $toDate])->count();
-    $order_count = Order::whereBetween('created_at', [$fromDate, $toDate])->count();
-    $total_order_amount = Order::whereBetween('created_at', [$fromDate, $toDate])->sum('total_price');
-    $message_count = Contact::whereBetween('created_at', [$fromDate, $toDate])->count();
+    // Dynamic date filter scopes
+    $applyCreatedAtFilter = function ($query) use ($fromDate, $toDate) {
+        if ($fromDate && $toDate) {
+            $query->whereBetween('created_at', [$fromDate, $toDate]);
+        }
+    };
 
-    // $status_counts = Order::select('status', DB::raw('count(*) as count'))
-    //     ->whereBetween('created_at', [$fromDate, $toDate])
-    //     ->whereIn('status', ['pending', 'cancelled', 'confirmed', 'shipped', 'delivered'])
-    //     ->groupBy('status')
-    //     ->pluck('count', 'status');
+    $applyStatusDateFilter = function ($query) use ($fromDate, $toDate) {
+        if ($fromDate && $toDate) {
+            $query->whereBetween(DB::raw('COALESCE(status_updated_at, updated_at)'), [$fromDate, $toDate]);
+        }
+    };
 
-    $status_counts = Order::select('status', DB::raw('count(*) as count'))
-                ->whereBetween(DB::raw('COALESCE(status_updated_at, updated_at)'), [$fromDate, $toDate])
-                ->whereIn('status', ['pending', 'cancelled', 'confirmed', 'shipped', 'delivered'])
-                ->groupBy('status')
-                ->pluck('count', 'status');
+    // Aggregated counts and totals
+    $user_count = User::where($applyCreatedAtFilter)->count();
+    $message_count = Contact::where($applyCreatedAtFilter)->count();
+    $order_count = Order::where($applyCreatedAtFilter)->count();
+    $total_order_amount = Order::where($applyCreatedAtFilter)->sum('total_price');
 
+    // Status-wise count & total
+    $statuses = ['pending', 'confirmed', 'cancelled', 'shipped', 'delivered'];
+    $status_data = [];
 
+    foreach ($statuses as $status) {
+        $orders = Order::where('status', $status)->where($applyStatusDateFilter);
+        $status_data[$status] = [
+            'count' => $orders->count(),
+            'amount' => $orders->sum('total_price'),
+        ];
+    }
+
+    // Final JSON response
     return response()->json([
         'user_count' => $user_count,
+        'message_count' => $message_count,
         'order_count' => $order_count,
         'total_order_amount' => $total_order_amount,
-        'message_count' => $message_count,
-        'pending_order_count' => $status_counts['pending'] ?? 0,
-        'cancelled_order_count' => $status_counts['cancelled'] ?? 0,
-        'confirmed_order_count' => $status_counts['confirmed'] ?? 0,
-        'shipped_order_count' => $status_counts['shipped'] ?? 0,
-        'delivered_order_count' => $status_counts['delivered'] ?? 0,
+        'statuses' => $status_data,
     ]);
 }
+
+
 
 
 

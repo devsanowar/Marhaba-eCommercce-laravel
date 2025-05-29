@@ -158,7 +158,7 @@ Route::prefix('admin')
         Route::post('/district/store/', [DistrictController::class, 'store'])->name('district.store');
         Route::get('district/edit/{id}', [DistrictController::class, 'edit'])->name('district.edit');
         Route::post('district/update', [DistrictController::class, 'update'])->name('district.update');
-        Route::delete('district/destroy/{id}', [DistrictController::class, 'destroy'])->name('district.destroy');
+        Route::delete('district/destroy/{id}', action: [DistrictController::class, 'destroy'])->name('district.destroy');
         Route::post('/district/status-change', [DistrictController::class, 'districtChangeStatus'])->name('district.status');
 
         // Upazila Route Here
@@ -190,6 +190,7 @@ Route::prefix('admin')
         Route::get('payment-method/edit/{id}', [PaymentMethodController::class, 'edit'])->name('payment_method.edit');
         Route::put('payment-method/update/{id}', [PaymentMethodController::class, 'update'])->name('payment_method.update');
         Route::delete('payment-method/delete/{id}', [PaymentMethodController::class, 'destroy'])->name('payment_method.destroy');
+        Route::post('/payment-method/status-change', [PaymentMethodController::class, 'paymentMethodChangeStatus'])->name('payment_method.status');
 
         // Post Category
         Route::get('/post-category/', [PostCategoryController::class, 'index'])->name('post_category.index');
